@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    shared_ptr<Tile> startTile = createMap();
+    Tile&  startTile = createMap();
     Game game(startTile);
 
     game.start();

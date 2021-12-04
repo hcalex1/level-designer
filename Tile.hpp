@@ -1,20 +1,22 @@
 #pragma once
 
+#include "Observable.hpp"
+
 #include <string>
 #include <iostream>
 #include <map>
 #include <memory>
 
-class Tile {
+class Tile : public Observable {
 public:
     Tile();
     Tile(const std::string &name, const std::string &description="");
 
-    const std::string getName() const;
-    const std::string getDescription() const;
-    std::shared_ptr<Tile> getAdjacentTile(char);
+    const std::string& getName() const;
+    const std::string& getDescription() const;
+    const std::shared_ptr<Tile>& getAdjacentTile(char) const;
 
-    void print(std::ostream&) const;
+    virtual void show(std::ostream&) const override;
     void setAdjacentTile(std::shared_ptr<Tile> tile, char direction);
     
     inline static std::shared_ptr<Tile> noTile = std::make_shared<Tile>();

@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Observable.hpp"
+
 #include <iostream>
 
-class Interactive
+class Interactive : public Observable
 {
 public:
-    void print(std::ostream&) const { }
+    virtual void show(std::ostream&) const override { }
 };

@@ -1,16 +1,18 @@
 #include "Tile.hpp"
-#include "Interactive.hpp"
+#include "Observable.hpp"
 
 #include <memory>
 
 class Game {
 public:
-    Game(const std::shared_ptr<Tile>& startTile);
+    Game (Tile& startTile);
 
-    void show(const std::shared_ptr<Interactive>&) const;
+    void show(const Observable&) const;
     void moveCharacter(char direction);
+    void readInput();
     void start();
 
 private:
-    std::shared_ptr<Tile> currentTile_;
+    Tile &currentTile_;
+    Observable &test = static_cast<Observable&>(currentTile_);
 };

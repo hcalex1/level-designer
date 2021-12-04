@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Tile::Tile() : Observable() {
+Tile::Tile() {
     adjacentTiles_['N'] = noTile;
     adjacentTiles_['E'] = noTile;
     adjacentTiles_['S'] = noTile;
@@ -19,13 +19,13 @@ Tile::Tile(const string &name, const string &description) : Tile() {
     description_ = description;
 }
 
-const string Tile::getName()        const { return name_; }
-const string Tile::getDescription() const { return description_; }
-shared_ptr<Tile> Tile::getAdjacentTile(char direction) {
-    return adjacentTiles_[direction];
+const string& Tile::getName()        const { return name_; }
+const string& Tile::getDescription() const { return description_; }
+const shared_ptr<Tile>& Tile::getAdjacentTile(char direction) const {
+    return adjacentTiles_.at(direction);
 }
 
-void Tile::print(ostream& os) const {
+void Tile::show(ostream& os) const {
     os << "-- " << name_ << " --" << endl;
     os << description_ << endl;
     for (auto [direction, tile] : adjacentTiles_){
