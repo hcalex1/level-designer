@@ -1,3 +1,12 @@
+/**
+* This file consists of definitions for the Game class. It has methods to 
+* start the game loop, read user input and show information to the user.
+* \file   main.cpp
+* \author Alex Hoang-Cao
+* \date   13 December 2021
+* Created 13 December 2021
+*/
+
 #include "Game.hpp"
 #include "Tile.hpp"
 #include "Observable.hpp"
@@ -22,8 +31,8 @@ void Game::moveCharacter(char direction) {
     if (currentTile_.getAdjacentTile(direction) == Tile::noTile)
         throw domain_error("No tile in this direction");
 
-    currentTile_ = *currentTile_.getAdjacentTile(direction);
     cout << "Going " << CARIDINAL_DIRECTIONS.at(direction) << "...\n\n";
+    currentTile_ = *currentTile_.getAdjacentTile(direction);
     show(currentTile_);
 }
 

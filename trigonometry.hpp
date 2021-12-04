@@ -1,3 +1,11 @@
+/**
+* This file contains functions to compute the direction and distance between two position pairs.
+* \file   main.cpp
+* \author Alex Hoang-Cao
+* \date   13 December 2021
+* Created 13 December 2021
+*/
+
 #define _USE_MATH_DEFINES
 
 #include "gsl/gsl"
@@ -13,13 +21,11 @@ double computeDistance(std::pair<int, int> position1, std::pair<int, int> positi
 char computeCardinalDirection(std::pair<int, int> start, std::pair<int, int> end) {
     double deltaX = end.first - start.first;
     double deltaY = end.second - start.second;
+    const double rad = atan2(deltaX, deltaY);
 
-    switch (gsl::narrow_cast<int>(atan2(deltaX, deltaY))) {
-    case 0                              : return 'N';
-    case gsl::narrow_cast<int>(M_PI_2)  : return 'E';
-    case gsl::narrow_cast<int>(M_PI)    : return 'S';
-    case gsl::narrow_cast<int>(-M_PI_2) : return 'W';
-    default:
-        throw std::domain_error("Target is not in a cardinal direction");
-    }
+    if      (rad ==  0.0)    return 'N';
+    else if (rad ==  M_PI_2) return 'E';
+    else if (rad ==  M_PI)   return 'S';
+    else if (rad == -M_PI_2) return 'W';
+    else throw std::domain_error("Target is not in a cardinal direction");
 }

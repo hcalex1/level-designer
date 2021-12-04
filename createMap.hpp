@@ -1,7 +1,15 @@
+/**
+* This file constains the definition for the createMap function.
+* It creates a map and returns the start Tile.
+* \file   main.cpp
+* \author Alex Hoang-Cao
+* \date   13 December 2021
+* Created 13 December 2021
+*/
+
 #include "Map.hpp"
 #include "Tile.hpp"
 
-#include <memory>
 #include <string>
 
 Tile& createMap() {
@@ -27,7 +35,7 @@ Tile& createMap() {
     map.linkTiles(std::pair(0,0), std::pair( 0,1));
     map.linkTiles(std::pair(0,0), std::pair(-1,0));
     map.linkTiles(std::pair(0,1), std::pair( 1,1));
-    map.linkTiles(std::pair(1,1), std::pair( 1,0));
+    map.linkTiles(std::pair(1,0), std::pair( 1,1));
 
     return *map.getTile(std::pair(0,0));
 }

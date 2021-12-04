@@ -1,9 +1,17 @@
+/**
+* This file consists of definitions for the Map class. It is used to manage Tiles
+* with the assumptions laid out in the README.md file.
+* \file   main.cpp
+* \author Alex Hoang-Cao
+* \date   13 December 2021
+* Created 13 December 2021
+*/
+
 #include "Map.hpp"
 #include "trigonometry.hpp"
 
 #include <memory>
 #include <stdexcept>
-#include <cassert>
 #include <cmath>
 
 using namespace std;

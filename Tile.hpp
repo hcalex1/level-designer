@@ -1,3 +1,11 @@
+/**
+* This file constains the declarations and prototypes for the Tile class.
+* \file   main.cpp
+* \author Alex Hoang-Cao
+* \date   13 December 2021
+* Created 13 December 2021
+*/
+
 #pragma once
 
 #include "Observable.hpp"

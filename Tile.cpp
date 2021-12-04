@@ -1,3 +1,11 @@
+/**
+* This file consists of definitions for the Tile class.
+* \file   main.cpp
+* \author Alex Hoang-Cao
+* \date   13 December 2021
+* Created 13 December 2021
+*/
+
 #include "Tile.hpp"
 #include"CARDINAL_DIRECTIONS.h"
 
