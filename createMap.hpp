@@ -26,17 +26,17 @@ std::shared_ptr<Tile> createMap() {
     auto guestHouse = std::make_shared<Tile>(Tile("Guest House", 
         "There is a bed and a kitchen."));
 
-    map.setTile(frontYard,  std::pair( 0, 0));
-    map.setTile(garage,     std::pair( 1, 0));
-    map.setTile(foyer,      std::pair( 0, 1));
-    map.setTile(livingRoom, std::pair( 1, 1));
-    map.setTile(guestHouse, std::pair(-1, 0));
+    map.setTile(frontYard,  { 0, 0});
+    map.setTile(garage,     { 1, 0});
+    map.setTile(foyer,      { 0, 1});
+    map.setTile(livingRoom, { 1, 1});
+    map.setTile(guestHouse, {-1, 0});
 
-    map.linkTiles(std::pair(0,0), std::pair( 1,0));
-    map.linkTiles(std::pair(0,0), std::pair( 0,1));
-    map.linkTiles(std::pair(0,0), std::pair(-1,0));
-    map.linkTiles(std::pair(0,1), std::pair( 1,1));
-    map.linkTiles(std::pair(1,0), std::pair( 1,1));
+    map.linkTiles({0,0}, { 1,0});
+    map.linkTiles({0,0}, { 0,1});
+    map.linkTiles({0,0}, {-1,0});
+    map.linkTiles({0,1}, { 1,1});
+    map.linkTiles({1,0}, { 1,1});
 
     return map.getTile(std::pair(0,0));
 }

@@ -36,18 +36,12 @@ void Game::readInput() {
     string input;
     getline(cin, input);
 
-    if (input.size() == 1) {
+    if (input.size() == 1)
         moveCharacter(input[0]);
-    }
-    else {
-        stringstream ss(input);
-        string command;
-        ss >> command;
-        if (command == "look")
-            currentTile_->show(cout);
-        else
-            throw invalid_argument("Command does not exist");
-    }
+    else if (input == "look")
+        currentTile_->show(cout);
+    else
+        throw invalid_argument("Command does not exist");
 }
 
 void Game::start() {
