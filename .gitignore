@@ -1,0 +1,11 @@
+# vscode config files
+.vscode
+
+# Build folders
+build
+debug
+
+# Visual Studio files
+*.sln
+*.vcxproj
+*.vcxproj.filters
