@@ -15,7 +15,7 @@
 using namespace std;
 
 int main() {
-    Tile&  startTile = createMap();
+    shared_ptr<Tile>  startTile = createMap();
     Game game(startTile);
 
     game.start();

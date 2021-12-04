@@ -19,21 +19,17 @@
 
 using namespace std;
 
-Game::Game(Tile &startTile) : currentTile_(startTile) {}
-
-void Game::show(const Observable &observable) const {
-    observable.show(cout);
-}
+Game::Game(const shared_ptr<Tile>& startTile) : currentTile_(startTile) {}
 
 void Game::moveCharacter(char direction) {
-    if (currentTile_.getAdjacentTile(direction) == nullptr)
+    if (currentTile_->getAdjacentTile(direction) == nullptr)
         throw invalid_argument("Direction does not exist");
-    if (currentTile_.getAdjacentTile(direction) == Tile::noTile)
+    if (currentTile_->getAdjacentTile(direction) == Tile::noTile)
         throw domain_error("No tile in this direction");
 
     cout << "Going " << CARIDINAL_DIRECTIONS.at(direction) << "...\n\n";
-    currentTile_ = *currentTile_.getAdjacentTile(direction);
-    show(currentTile_);
+    currentTile_ = currentTile_->getAdjacentTile(direction);
+    currentTile_->show(cout);
 }
 
 void Game::readInput() {
@@ -48,7 +44,7 @@ void Game::readInput() {
         string command;
         ss >> command;
         if (command == "look")
-            show(currentTile_);
+            currentTile_->show(cout);
         else
             throw invalid_argument("Command does not exist");
     }
@@ -63,7 +59,7 @@ void Game::start() {
         ╚══════════╩═╩══════════════╝\n\
             by Alex Hoang-Cao\n\n";
 
-    show(currentTile_);
+    currentTile_->show(cout);
 
     while (true) {
         cout << "\n> ";

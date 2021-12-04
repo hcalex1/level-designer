@@ -10,9 +10,10 @@
 #include "Map.hpp"
 #include "Tile.hpp"
 
+#include <memory>
 #include <string>
 
-Tile& createMap() {
+std::shared_ptr<Tile> createMap() {
     Map map;
     auto frontYard = std::make_shared<Tile>(Tile("Front Yard", 
         "There is circular driveway and a fountain"));
@@ -37,5 +38,5 @@ Tile& createMap() {
     map.linkTiles(std::pair(0,1), std::pair( 1,1));
     map.linkTiles(std::pair(1,0), std::pair( 1,1));
 
-    return *map.getTile(std::pair(0,0));
+    return map.getTile(std::pair(0,0));
 }
