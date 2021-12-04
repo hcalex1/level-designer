@@ -10,16 +10,15 @@ double computeDistance(std::pair<int, int> position1, std::pair<int, int> positi
     return hypot(deltaX, deltaY);
 }
 
-char getCardinalDirection(std::pair<int, int> start, std::pair<int, int> end) {
+char computeCardinalDirection(std::pair<int, int> start, std::pair<int, int> end) {
     double deltaX = end.first - start.first;
     double deltaY = end.second - start.second;
 
-    switch (gsl::narrow_cast<int>(atan2(deltaX, deltaY) * 180.0 / M_PI))
-    {
-    case   0: return 'E';
-    case  90: return 'N';
-    case 180: return 'W';
-    case 270: return 'S';
+    switch (gsl::narrow_cast<int>(atan2(deltaX, deltaY))) {
+    case 0                              : return 'N';
+    case gsl::narrow_cast<int>(M_PI_2)  : return 'E';
+    case gsl::narrow_cast<int>(M_PI)    : return 'S';
+    case gsl::narrow_cast<int>(-M_PI_2) : return 'W';
     default:
         throw std::domain_error("Target is not in a cardinal direction");
     }

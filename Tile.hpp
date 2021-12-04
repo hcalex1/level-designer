@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 #include <map>
 #include <memory>
 
@@ -13,10 +14,10 @@ public:
     const std::string getDescription() const;
     std::shared_ptr<Tile> getAdjacentTile(char);
 
-    void print() const;
+    void print(std::ostream&) const;
     void setAdjacentTile(std::shared_ptr<Tile> tile, char direction);
     
-    inline static std::shared_ptr<Tile> noTile = nullptr;
+    inline static std::shared_ptr<Tile> noTile = std::make_shared<Tile>();
 
 private:
     std::string name_;

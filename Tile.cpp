@@ -1,4 +1,5 @@
 #include "Tile.hpp"
+#include"CARDINAL_DIRECTIONS.h"
 
 #include <string>
 #include <memory>
@@ -6,7 +7,7 @@
 
 using namespace std;
 
-Tile::Tile() {
+Tile::Tile() : Observable() {
     adjacentTiles_['N'] = noTile;
     adjacentTiles_['E'] = noTile;
     adjacentTiles_['S'] = noTile;
@@ -24,13 +25,13 @@ shared_ptr<Tile> Tile::getAdjacentTile(char direction) {
     return adjacentTiles_[direction];
 }
 
-void Tile::print() const {
-    cout << "-- " << name_ << " --" << endl;
-    cout << description_ << endl;
+void Tile::print(ostream& os) const {
+    os << "-- " << name_ << " --" << endl;
+    os << description_ << endl;
     for (auto [direction, tile] : adjacentTiles_){
         if (tile != noTile) {
-            cout << tile->name_ << " is to the " << direction << " ("
-                    << direction << ")" << endl;
+            os << tile->name_ << " is to the " << CARIDINAL_DIRECTIONS.at(direction)
+                    << " (" << direction << ")" << endl;
         }
     }
 }
