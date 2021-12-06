@@ -1,4 +1,4 @@
-# TODO: INSERT TITLE
+# INF1015 Projet - Jeu Deadly Rooms
 
 ## Definitions:
 - *character*: The player's character though which he interacts with the game world
