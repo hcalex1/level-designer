@@ -2,7 +2,7 @@
 * This file consists of definitions for the Map class. It is used to manage Tiles
 * with the assumptions laid out in the README.md file.
 * \file   main.cpp
-* \author Alex Hoang-Cao
+* \author Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */

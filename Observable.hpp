@@ -3,7 +3,7 @@
 * all classes that can be observed by the player will
 * be derrived from this class..
 * \file   main.cpp
-* \author Alex Hoang-Cao
+* \author Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */

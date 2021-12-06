@@ -2,7 +2,7 @@
 * This file consists of definitions for the Game class. It has methods to 
 * start the game loop, read user input and show information to the user.
 * \file   main.cpp
-* \author Alex Hoang-Cao
+* \author Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */

@@ -1,7 +1,7 @@
 /**
 * This file constains the declarations and prototypes for the Map class.
 * \file   main.cpp
-* \author Alex Hoang-Cao
+* \author Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */
