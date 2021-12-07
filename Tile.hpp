@@ -8,14 +8,14 @@
 
 #pragma once
 
-#include "Observable.hpp"
+#include "Lookable.hpp"
 
 #include <string>
 #include <iostream>
 #include <map>
 #include <memory>
 
-class Tile : public Observable {
+class Tile : public Lookable {
 public:
     Tile();
     Tile(const std::string &name, const std::string &description="");
@@ -27,7 +27,7 @@ public:
     virtual void show(std::ostream&) const override;
     void setAdjacentTile(std::shared_ptr<Tile> tile, char direction);
     
-    inline static std::shared_ptr<Tile> noTile = std::make_shared<Tile>();
+    inline static const std::shared_ptr<Tile> noTile = std::make_shared<Tile>();
 
 private:
     std::string name_;

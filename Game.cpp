@@ -9,7 +9,7 @@
 
 #include "Game.hpp"
 #include "Tile.hpp"
-#include "Observable.hpp"
+#include "Lookable.hpp"
 #include "CARDINAL_DIRECTIONS.h"
 
 #include <memory>
@@ -19,7 +19,15 @@
 
 using namespace std;
 
+
 Game::Game(const shared_ptr<Tile>& startTile) : currentTile_(startTile) {}
+
+void Game::look(const Lookable& lookable) const {
+    if (lookable == defaultLookable_)
+        currentTile_->show(cout);
+    else
+        lookable.show(cout);
+}
 
 void Game::moveCharacter(char direction) {
     if (currentTile_->getAdjacentTile(direction) == nullptr)
@@ -29,19 +37,16 @@ void Game::moveCharacter(char direction) {
 
     cout << "Going " << CARIDINAL_DIRECTIONS.at(direction) << "...\n\n";
     currentTile_ = currentTile_->getAdjacentTile(direction);
-    currentTile_->show(cout);
+    look();
 }
 
-void Game::readInput() {
-    string input;
-    getline(cin, input);
-
-    if (input.size() == 1)
-        moveCharacter(input[0]);
-    else if (input == "look")
-        currentTile_->show(cout);
+void Game::executeCommand(const string& proword, const string& argument) {
+    if (proword.size() == 1)
+        moveCharacter(proword[0]);
+    else if (proword == "look" && argument == "")
+        look();
     else
-        throw invalid_argument("Command does not exist");
+        throw invalid_argument("Unknown command");
 }
 
 void Game::start() {
@@ -51,16 +56,33 @@ void Game::start() {
         ║║║╔╣╩╬╝║║║║║║║╔╗╣║║║║║║╠╗╚╣║\n\
         ║╚═╝╚═╩═╩═╩╬╗║╚╝╚╩═╩═╩╩╩╩══╝║\n\
         ╚══════════╩═╩══════════════╝\n\
-            by Alex Hoang-Cao\n\n";
-
-    currentTile_->show(cout);
+            by Alex Hoang-Cao & Emile Watier\n\n";
+    look();
 
     while (true) {
         cout << "\n> ";
 
-        try { readInput(); }
+        try { 
+            string playerInput;
+            getline(cin, playerInput);
+
+            auto&& [proword, argument] = parseCommand(playerInput);
+            executeCommand(proword, argument);
+        }
         catch (domain_error& e)     { cout << "You can't go there."     << endl; }
         catch (invalid_argument& e) { cout << "I do not know that one." << endl; }
         catch (exception& e)        { cout << "Exception: " << e.what() << endl; }
+    }
+}
+
+pair<string, string> Game::parseCommand(const string& command) {
+    int split = command.find(" ");
+    if (split != string::npos) {
+        string proword  = command.substr(0, split - 1);
+        string argument = command.substr(split);
+        return { proword, argument };
+    }
+    else {
+        return { command, "" };
     }
 }
