@@ -1,7 +1,6 @@
 /**
-* This file consists of the Lookable almost abstract class
-* all classes that can be observed by the player will be
-* derrived from this class.
+* This file consists of the Lookable abstract class all classes that can be
+* observed by the player will be derrived from this class.
 * \file   main.cpp
 * \author Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
