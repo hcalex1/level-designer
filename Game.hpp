@@ -26,5 +26,5 @@ public:
 private:
     std::shared_ptr<Tile> currentTile_;
 
-    inline static const Lookable& defaultLookable_ = Tile();
+    inline static const Lookable& defaultLookable_ = Tile{};
 };

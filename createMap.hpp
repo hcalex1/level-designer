@@ -15,16 +15,16 @@
 
 std::shared_ptr<Tile> createMap() {
     Map map;
-    auto frontYard = std::make_shared<Tile>(Tile("Front Yard", 
-        "There is circular driveway and a fountain"));
-    auto garage = std::make_shared<Tile>(Tile("Garage", 
-        "There are four parking spaces."));
-    auto foyer = std::make_shared<Tile>(Tile("Foyer", 
-        "There is a round table and a chandelier."));
-    auto livingRoom = std::make_shared<Tile>(Tile("Living Room", 
-        "There are two large couches and a coffee table."));
-    auto guestHouse = std::make_shared<Tile>(Tile("Guest House", 
-        "There is a bed and a kitchen."));
+    auto frontYard = std::make_shared<Tile>(Tile{"Front Yard", 
+        "There is circular driveway and a fountain"});
+    auto garage = std::make_shared<Tile>(Tile{"Garage", 
+        "There are four parking spaces."});
+    auto foyer = std::make_shared<Tile>(Tile{"Foyer", 
+        "There is a round table and a chandelier."});
+    auto livingRoom = std::make_shared<Tile>(Tile{"Living Room", 
+        "There are two large couches and a coffee table."});
+    auto guestHouse = std::make_shared<Tile>(Tile{"Guest House", 
+        "There is a bed and a kitchen."});
 
     map.setTile(frontYard,  { 0, 0});
     map.setTile(garage,     { 1, 0});
