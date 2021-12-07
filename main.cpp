@@ -14,8 +14,6 @@
 using namespace std;
 
 int main() {
-    #include "CARDINAL_DIRECTIONS.h"
-    CARDINAL_DIRECTIONS.at('Q');
     shared_ptr<Tile>  startTile = createMap();
     Game game{startTile};
 
