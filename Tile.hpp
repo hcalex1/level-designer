@@ -22,7 +22,7 @@ public:
 
     const std::string& getName() const;
     const std::string& getDescription() const;
-    std::shared_ptr<Tile> getAdjacentTile(char);
+    std::shared_ptr<Tile> getAdjacentTile(char) const;
 
     virtual void show(std::ostream&) const override;
     void setAdjacentTile(std::shared_ptr<Tile> tile, char direction);
