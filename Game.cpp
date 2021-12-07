@@ -33,13 +33,7 @@ void Game::look(const Lookable& lookable) const {
 }
 
 void Game::move(char direction) {
-    shared_ptr<Tile> nextTile;
-    try {
-        nextTile = currentTile_->getAdjacentTile(direction);
-    }
-    catch (out_of_range& e) {
-        throw InvalidDirection("Direction does not exist");
-    }
+    shared_ptr<Tile> nextTile = currentTile_->getAdjacentTile(direction);
 
     if (nextTile == Tile::noTile)
         throw EmptyDirection("No tile in this direction");
