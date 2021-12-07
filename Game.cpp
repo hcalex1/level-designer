@@ -75,7 +75,6 @@ void Game::start() {
         catch (EmptyDirection& e)   { cout << "You can't go there."     << endl; }
         catch (InvalidCommand& e)   { cout << "I do not know that one." << endl; }
         catch (InvalidDirection& e) { cout << "I do not know that one." << endl; }
-        catch (exception& e)        { cout << "Exception: " << e.what() << endl; }
     }
 }
 
