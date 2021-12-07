@@ -17,11 +17,11 @@ public:
     Game (const std::shared_ptr<Tile>& startTile);
 
     void look(const Lookable& lookable = defaultLookable_) const;
-    void moveCharacter(char direction);
+    void move(char direction);
     void executeCommand(const std::string& proword, const std::string& argument="");
     void start();
 
-    static pair<string, string> parseCommand(const string& command);
+    static std::pair<std::string, std::string> parseCommand(const std::string& command);
 
 private:
     std::shared_ptr<Tile> currentTile_;

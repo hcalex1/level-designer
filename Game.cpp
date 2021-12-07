@@ -11,6 +11,9 @@
 #include "Tile.hpp"
 #include "Lookable.hpp"
 #include "CARDINAL_DIRECTIONS.h"
+#include "Exceptions/EmptyDirection.hpp"
+#include "Exceptions/InvalidCommand.hpp"
+#include "Exceptions/InvalidDirection.hpp"
 
 #include <memory>
 #include <stdexcept>
@@ -29,24 +32,24 @@ void Game::look(const Lookable& lookable) const {
         lookable.show(cout);
 }
 
-void Game::moveCharacter(char direction) {
+void Game::move(char direction) {
     if (currentTile_->getAdjacentTile(direction) == nullptr)
-        throw invalid_argument("Direction does not exist");
+        throw InvalidDirection("Direction does not exist");
     if (currentTile_->getAdjacentTile(direction) == Tile::noTile)
-        throw domain_error("No tile in this direction");
+        throw EmptyDirection("No tile in this direction");
 
-    cout << "Going " << CARIDINAL_DIRECTIONS.at(direction) << "...\n\n";
+    cout << "Going " << CARDINAL_DIRECTIONS.at(direction) << "...\n\n";
     currentTile_ = currentTile_->getAdjacentTile(direction);
     look();
 }
 
 void Game::executeCommand(const string& proword, const string& argument) {
     if (proword.size() == 1)
-        moveCharacter(proword[0]);
+        move(proword[0]);
     else if (proword == "look" && argument == "")
         look();
     else
-        throw invalid_argument("Unknown command");
+        throw InvalidCommand("Unknown command");
 }
 
 void Game::start() {
@@ -69,8 +72,9 @@ void Game::start() {
             auto&& [proword, argument] = parseCommand(playerInput);
             executeCommand(proword, argument);
         }
-        catch (domain_error& e)     { cout << "You can't go there."     << endl; }
-        catch (invalid_argument& e) { cout << "I do not know that one." << endl; }
+        catch (EmptyDirection& e)   { cout << "You can't go there."     << endl; }
+        catch (InvalidCommand& e)   { cout << "I do not know that one." << endl; }
+        catch (InvalidDirection& e) { cout << "I do not know that one." << endl; }
         catch (exception& e)        { cout << "Exception: " << e.what() << endl; }
     }
 }

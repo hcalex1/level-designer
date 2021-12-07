@@ -38,7 +38,7 @@ void Tile::show(ostream& os) const {
     os << description_ << endl;
     for (auto [direction, tile] : adjacentTiles_){
         if (tile != noTile) {
-            os << tile->name_ << " is to the " << CARIDINAL_DIRECTIONS.at(direction)
+            os << tile->name_ << " is to the " << CARDINAL_DIRECTIONS.at(direction)
                     << " (" << direction << ")" << endl;
         }
     }
