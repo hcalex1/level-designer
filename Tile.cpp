@@ -29,8 +29,8 @@ Tile::Tile(const string &name, const string &description) : Tile() {
 
 const string& Tile::getName()        const { return name_; }
 const string& Tile::getDescription() const { return description_; }
-shared_ptr<Tile> Tile::getAdjacentTile(char direction) {
-    return adjacentTiles_[direction];
+shared_ptr<Tile> Tile::getAdjacentTile(char direction) const {
+    return adjacentTiles_.at(direction);
 }
 
 void Tile::show(ostream& os) const {
