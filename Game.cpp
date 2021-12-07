@@ -33,13 +33,19 @@ void Game::look(const Lookable& lookable) const {
 }
 
 void Game::move(char direction) {
-    if (currentTile_->getAdjacentTile(direction) == nullptr)
+    shared_ptr<Tile> nextTile;
+    try {
+        nextTile = currentTile_->getAdjacentTile(direction);
+    }
+    catch (out_of_range& e) {
         throw InvalidDirection("Direction does not exist");
-    if (currentTile_->getAdjacentTile(direction) == Tile::noTile)
+    }
+
+    if (nextTile == Tile::noTile)
         throw EmptyDirection("No tile in this direction");
 
     cout << "Going " << CARDINAL_DIRECTIONS.at(direction) << "...\n\n";
-    currentTile_ = currentTile_->getAdjacentTile(direction);
+    currentTile_ = nextTile;
     look();
 }
 
