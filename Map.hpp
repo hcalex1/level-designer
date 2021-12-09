@@ -1,5 +1,7 @@
 /**
-* This file constains the declarations and prototypes for the Map class.
+* This file constains the declarations and prototypes for the Map class. This class is 
+used to manage Tiles with the assumptions laid out in the README.md file. It is intended
+to be used to link Tiles avoiding conflicts.
 * \file   main.cpp
 * \author Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
