@@ -9,3 +9,16 @@ debug
 *.sln
 *.vcxproj
 *.vcxproj.filters
+*.db
+.vs/ProjetTest/v16/.suo
+*.db-shm
+*.db-wal
+*.opendb
+*.ipch
+bibliotheque_cours/bibliotheque_cours.cpp
+bibliotheque_cours/verification_allocation.cpp
+include/bibliotheque_cours.hpp
+include/CodeCoverage_bugfix.h
+include/debogage_memoire.hpp
+include/verification_allocation.hpp
+ProjetTest.vcxproj.user
