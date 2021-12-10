@@ -9,6 +9,7 @@
 
 #include "Map.hpp"
 #include "trigonometry.hpp"
+#include "cardinalDirection.hpp"
 
 #include <memory>
 #include <stdexcept>
@@ -16,15 +17,21 @@
 
 using namespace std;
 
+Map::Map(pair<int, int> startPosition) : startPosition_(startPosition) {}
+
 unsigned Map::size() const {
     return map_.size();
 }
 
-shared_ptr<Tile> Map::getTile(pair<int, int> position) {
+Tile& Map::getTile(pair<int, int> position) {
     return map_[position];
 }
 
-void Map::setTile(const std::shared_ptr<Tile>& tile, pair<int, int> position) {
+std::pair<int, int> Map::getStartPosition() const{
+    return startPosition_;
+}
+
+void Map::insert(Tile& tile, pair<int, int> position) {
     if (map_.find(position) == map_.end())
         map_[position] = tile;
     else
@@ -35,11 +42,10 @@ void Map::linkTiles(pair<int, int> position1, pair<int, int> position2) {
     if (computeDistance(position1, position2) != 1.0)
         throw domain_error("Tiles are not adjacent");
     
-    auto tile1 = map_[position1];
-    auto tile2 = map_[position2];
-    char direction12 = computeCardinalDirection(position1, position2);
-    char direction21 = computeCardinalDirection(position2, position1);
-
-    tile1->setAdjacentTile(tile2, direction12);
-    tile2->setAdjacentTile(tile1, direction21);
+    Tile& tile1 = map_[position1];
+    Tile& tile2 = map_[position2];
+    cardinalDirection direction12 = computeCardinalDirection(position1, position2);
+    cardinalDirection direction21 = computeCardinalDirection(position2, position1);
+    tile1.link(direction12);
+    tile2.link(direction21);
 }

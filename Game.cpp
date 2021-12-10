@@ -10,12 +10,11 @@
 #include "Game.hpp"
 #include "Tile.hpp"
 #include "Lookable.hpp"
-#include "CARDINAL_DIRECTIONS.h"
+#include "cardinalDirection.hpp"
 #include "Exceptions/EmptyDirection.hpp"
 #include "Exceptions/InvalidCommand.hpp"
 #include "Exceptions/InvalidDirection.hpp"
 
-#include <memory>
 #include <stdexcept>
 #include <iostream>
 #include <sstream>
@@ -23,29 +22,33 @@
 using namespace std;
 
 
-Game::Game(const shared_ptr<Tile>& startTile) : currentTile_(startTile) {}
+Game::Game(Map& map) : 
+    map_(map), coordinates_(map.getStartPosition()) {}
 
 void Game::look(const Lookable& lookable) const {
     if (lookable == defaultLookable_)
-        currentTile_->show(cout);
+        map_.getTile(coordinates_).show(cout);
+        // TODO look at surrounding Tiles
     else
         lookable.show(cout);
 }
 
-void Game::move(char direction) {
-    shared_ptr<Tile> nextTile = currentTile_->getAdjacentTile(direction);
-
-    if (nextTile == Tile::noTile)
+void Game::move(cardinalDirection direction) {
+    if (map_.getTile(coordinates_).isLinked(direction)) {
+        pair<int, int> directionVector = cardinalToVector.at(direction);
+        coordinates_.first += directionVector.first;
+        coordinates_.second += directionVector.second;
+    }
+    else
         throw EmptyDirection("No tile in this direction");
 
-    cout << "Going " << CARDINAL_DIRECTIONS.at(direction) << "...\n\n";
-    currentTile_ = nextTile;
+    cout << "Going " << cardinalToString.at(direction) << "...\n\n";
     look();
 }
 
 void Game::executeCommand(const string& proword, const string& argument) {
     if (proword.size() == 1)
-        move(proword[0]);
+        move(charToCardinal.at(proword[0]));
     else if (proword == "look" && argument == "")
         look();
     else

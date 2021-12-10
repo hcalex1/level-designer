@@ -8,23 +8,26 @@
 
 #include "Tile.hpp"
 #include "Lookable.hpp"
+#include "Map.hpp"
+#include "cardinalDirection.hpp"
 
 #include <memory>
 #include <string>
 
 class Game {
 public:
-    Game (const std::shared_ptr<Tile>& startTile);
+    Game (Map& map);
 
     void look(const Lookable& lookable = defaultLookable_) const;
-    void move(char direction);
+    void move(cardinalDirection direction);
     void executeCommand(const std::string& proword, const std::string& argument="");
     void start();
 
     static std::pair<std::string, std::string> parseCommand(const std::string& command);
 
 private:
-    std::shared_ptr<Tile> currentTile_;
+    Map& map_;
+    std::pair<int, int> coordinates_;
 
     inline static const Lookable& defaultLookable_ = Tile{};
 };

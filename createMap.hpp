@@ -13,8 +13,8 @@
 #include <memory>
 #include <string>
 
-std::shared_ptr<Tile> createMap() {
-    Map map;
+Map& createMap() {
+    auto map = std::make_shared<Map>();
     auto frontYard = std::make_shared<Tile>(Tile{"Front Yard", 
         "There is circular driveway and a fountain"});
     auto garage = std::make_shared<Tile>(Tile{"Garage", 
@@ -26,17 +26,17 @@ std::shared_ptr<Tile> createMap() {
     auto guestHouse = std::make_shared<Tile>(Tile{"Guest House", 
         "There is a bed and a kitchen."});
 
-    map.setTile(frontYard,  { 0, 0});
-    map.setTile(garage,     { 1, 0});
-    map.setTile(foyer,      { 0, 1});
-    map.setTile(livingRoom, { 1, 1});
-    map.setTile(guestHouse, {-1, 0});
+    map->insert(*frontYard,  { 0, 0});
+    map->insert(*garage,     { 1, 0});
+    map->insert(*foyer,      { 0, 1});
+    map->insert(*livingRoom, { 1, 1});
+    map->insert(*guestHouse, {-1, 0});
 
-    map.linkTiles({0,0}, { 1,0});
-    map.linkTiles({0,0}, { 0,1});
-    map.linkTiles({0,0}, {-1,0});
-    map.linkTiles({0,1}, { 1,1});
-    map.linkTiles({1,0}, { 1,1});
+    map->linkTiles({0,0}, { 1,0});
+    map->linkTiles({0,0}, { 0,1});
+    map->linkTiles({0,0}, {-1,0});
+    map->linkTiles({0,1}, { 1,1});
+    map->linkTiles({1,0}, { 1,1});
 
-    return map.getTile(std::pair(0,0));
+    return *map;
 }

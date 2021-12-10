@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Lookable.hpp"
+#include "cardinalDirection.hpp"
 
 #include <string>
 #include <iostream>
@@ -22,15 +23,16 @@ public:
 
     const std::string& getName() const;
     const std::string& getDescription() const;
-    std::shared_ptr<Tile> getAdjacentTile(char) const;
+    bool isLinked(cardinalDirection direction);
+
+    void link(cardinalDirection direction);
+
+    void unlink(cardinalDirection direction);
 
     virtual void show(std::ostream&) const override;
-    void setAdjacentTile(std::shared_ptr<Tile> tile, char direction);
-    
-    inline static const std::shared_ptr<Tile> noTile = std::make_shared<Tile>();
 
 private:
     std::string name_;
     std::string description_;
-    std::map<char, std::shared_ptr<Tile>> adjacentTiles_;
+    std::uint8_t linkState_;
 };

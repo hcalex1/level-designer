@@ -7,6 +7,7 @@ project(prj_inf1015)
 file(GLOB ALL_FILES
     *.cpp
     *.hpp
+    *.h
 )
 
 add_executable(${PROJECT_NAME} ${ALL_FILES})

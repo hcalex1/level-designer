@@ -5,6 +5,9 @@
 * \date   13 December 2021
 * Created 13 December 2021
 */
+#pragma once
+
+#include "cardinalDirection.hpp"
 
 #define _USE_MATH_DEFINES
 
@@ -18,14 +21,14 @@ double computeDistance(std::pair<int, int> position1, std::pair<int, int> positi
     return hypot(deltaX, deltaY);
 }
 
-char computeCardinalDirection(std::pair<int, int> start, std::pair<int, int> end) {
+cardinalDirection computeCardinalDirection(std::pair<int, int> start, std::pair<int, int> end) {
     double deltaX = end.first - start.first;
     double deltaY = end.second - start.second;
     const double rad = atan2(deltaX, deltaY);
 
-    if      (rad ==  0.0)    return 'N';
-    else if (rad ==  M_PI_2) return 'E';
-    else if (rad ==  M_PI)   return 'S';
-    else if (rad == -M_PI_2) return 'W';
+    if      (rad ==  0.0)    return NORTH;
+    else if (rad ==  M_PI_2) return EAST;
+    else if (rad ==  M_PI)   return SOUTH;
+    else if (rad == -M_PI_2) return WEST;
     else throw std::domain_error("Target is not in a cardinal direction");
 }

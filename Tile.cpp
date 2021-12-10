@@ -7,7 +7,7 @@
 */
 
 #include "Tile.hpp"
-#include"CARDINAL_DIRECTIONS.h"
+#include "cardinalDirection.hpp"
 #include "Exceptions/InvalidDirection.hpp"
 
 #include <string>
@@ -16,41 +16,32 @@
 
 using namespace std;
 
-Tile::Tile() {
-    adjacentTiles_['N'] = noTile;
-    adjacentTiles_['E'] = noTile;
-    adjacentTiles_['S'] = noTile;
-    adjacentTiles_['W'] = noTile;
+Tile::Tile() : linkState_(0) {}
+
+Tile::Tile(const string &name, const string &description) : 
+    name_(name), description_(description), linkState_(0) {}
+
+const string& Tile::getName() const {
+    return name_;
 }
 
-Tile::Tile(const string &name, const string &description) : Tile() {
-    name_ = name;
-    description_ = description;
+const string& Tile::getDescription() const {
+    return description_;
 }
 
-const string& Tile::getName()        const { return name_; }
-const string& Tile::getDescription() const { return description_; }
+bool Tile::isLinked(cardinalDirection direction) {
+    return linkState_ & direction;
+}
 
-shared_ptr<Tile> Tile::getAdjacentTile(char direction) const {
-    try {
-        return adjacentTiles_.at(direction);
-    }
-    catch (out_of_range& e) {
-        throw InvalidDirection("Direction does not exist");
-    }
+void Tile::link(cardinalDirection direction) {
+    linkState_ += direction;
+}
+
+void Tile::unlink(cardinalDirection direction) {
+    linkState_ -= direction;
 }
 
 void Tile::show(ostream& os) const {
     os << "-- " << name_ << " --" << endl;
     os << description_ << endl;
-    for (auto [direction, tile] : adjacentTiles_){
-        if (tile != noTile) {
-            os << tile->name_ << " is to the " << CARDINAL_DIRECTIONS.at(direction)
-                    << " (" << direction << ")" << endl;
-        }
-    }
-}
-
-void Tile::setAdjacentTile(std::shared_ptr<Tile> newTile, char direction) {
-    adjacentTiles_[direction] = newTile;
 }
