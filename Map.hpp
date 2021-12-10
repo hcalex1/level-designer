@@ -1,31 +1,25 @@
-/**
-* This file constains the declarations and prototypes for the Map class. This class is 
-used to manage Tiles with the assumptions laid out in the README.md file. It is intended
-to be used to link Tiles avoiding conflicts.
-* \file   main.cpp
-* \author Alex Hoang-Cao and Emile Watier
-* \date   13 December 2021
-* Created 13 December 2021
-*/
-
 #pragma once
+#include "Navigator.hpp"
+#include "Position.hpp"
 
-#include "Tile.hpp"
-
-#include <utility>
 #include <memory>
 
+template<typename T> class Navigator;
+template<typename T>
 class Map
 {
 public:
+    Map();
+    ~Map();
 
     unsigned size() const; 
-    std::shared_ptr<Tile> getTile(std::pair<int, int>);
     std::pair<int, int> getStartPosition() const;
 
-    void setTile(const std::shared_ptr<Tile>&, std::pair<int, int>);
-    void linkTiles(std::pair<int, int>, std::pair<int, int>);
+    void insert(Navigator<T> navigator, const T& item);
+    void erase(Navigator<T> navigator);
 
 private:
-    std::map<std::pair<int, int>, std::shared_ptr<Tile>> map_;
+    std::shared_ptr<Position<T>> startPosition_;
+    // std::map<std::pair<int, int>, std::shared_ptr<Position>> positions_;
+    friend class Navigator<T>;
 };
