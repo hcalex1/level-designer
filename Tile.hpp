@@ -9,28 +9,38 @@
 #pragma once
 
 #include "Lookable.hpp"
+#include "cardinal.hpp"
 
 #include <string>
 #include <iostream>
 #include <map>
 #include <memory>
 
+class Map;
 class Tile : public Lookable {
 public:
-    Tile();
+    Tile() = default;
     Tile(const std::string &name, const std::string &description="");
 
     const std::string& getName() const;
     const std::string& getDescription() const;
-    std::shared_ptr<Tile> getAdjacentTile(char) const;
+    std::shared_ptr<Tile> getAdjacentTile(cardinal::Direction) const;
+    cardinal::Direction getDirection(std::shared_ptr<Tile>) const;
+    bool isLinkedTo(cardinal::Direction direction);
 
+    void linkTo(cardinal::Direction direction);
+    void unlink(cardinal::Direction direction);
     virtual void show(std::ostream&) const override;
-    void setAdjacentTile(std::shared_ptr<Tile> tile, char direction);
-    
-    inline static const std::shared_ptr<Tile> noTile = std::make_shared<Tile>();
 
+    static void link(std::shared_ptr<Tile>, std::shared_ptr<Tile>);
+    
 private:
+    void setAdjacency(std::shared_ptr<Tile>, cardinal::Direction);
+
     std::string name_;
     std::string description_;
-    std::map<char, std::shared_ptr<Tile>> adjacentTiles_;
+    std::map<cardinal::Direction, std::shared_ptr<Tile>> adjacentTiles_;
+    std::uint8_t linkState_;
+
+    friend Map;
 };

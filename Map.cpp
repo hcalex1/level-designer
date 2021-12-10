@@ -8,13 +8,23 @@
 */
 
 #include "Map.hpp"
-#include "trigonometry.hpp"
+#include "cardinal.hpp"
+#include "Exceptions/InvalidCoordinates.hpp"
 
 #include <memory>
 #include <stdexcept>
 #include <cmath>
+#include "cppitertools/range.hpp"
 
 using namespace std;
+using namespace cardinal;
+
+Map::~Map() {
+    // All tiles must be deleted due to circular references
+    for (auto [position, tilePtr] : map_) {
+        delete tilePtr.get();
+    }
+}
 
 unsigned Map::size() const {
     return map_.size();
@@ -24,22 +34,28 @@ shared_ptr<Tile> Map::getTile(pair<int, int> position) {
     return map_[position];
 }
 
-void Map::setTile(const std::shared_ptr<Tile>& tile, pair<int, int> position) {
-    if (map_.find(position) == map_.end())
-        map_[position] = tile;
-    else
-        throw domain_error("Position occupied");
+void Map::erase(pair<int, int> position) {
+    map_.erase(position);
 }
 
-void Map::linkTiles(pair<int, int> position1, pair<int, int> position2) {
-    if (computeDistance(position1, position2) != 1.0)
-        throw domain_error("Tiles are not adjacent");
-    
-    auto tile1 = map_[position1];
-    auto tile2 = map_[position2];
-    char direction12 = computeCardinalDirection(position1, position2);
-    char direction21 = computeCardinalDirection(position2, position1);
+void Map::insert(const Tile& tile, pair<int, int> position) {
+    if (map_[position] != nullptr)
+        throw InvalidCoordinates("Position occupied");
 
-    tile1->setAdjacentTile(tile2, direction12);
-    tile2->setAdjacentTile(tile1, direction21);
+    pair<int, int> adjacent[4];
+    adjacent[0] = {position.first    , position.second - 1};
+    adjacent[1] = {position.first    , position.second + 1};
+    adjacent[2] = {position.first - 1, position.second    };
+    adjacent[3] = {position.first + 1, position.second    };
+
+    auto newTile = make_shared<Tile>(tile);
+    for (int i : iter::range(4)) {
+        if (map_[adjacent[i]] != nullptr) {
+            Direction toAdjacent = computeDirection(position, adjacent[i]);
+            Direction toNew      = computeDirection(adjacent[i], position);
+            newTile->adjacentTiles_[toAdjacent] = map_[adjacent[i]];
+            map_[adjacent[i]]->adjacentTiles_[toNew] = newTile;
+        }
+    }
+    map_[position] = newTile;
 }

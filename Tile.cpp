@@ -7,31 +7,29 @@
 */
 
 #include "Tile.hpp"
-#include"CARDINAL_DIRECTIONS.h"
+#include "cardinal.hpp"
 #include "Exceptions/InvalidDirection.hpp"
+#include "Exceptions/InvalidCoordinates.hpp"
 
 #include <string>
 #include <memory>
 #include <iostream>
 
 using namespace std;
+using namespace cardinal;
 
-Tile::Tile() {
-    adjacentTiles_['N'] = noTile;
-    adjacentTiles_['E'] = noTile;
-    adjacentTiles_['S'] = noTile;
-    adjacentTiles_['W'] = noTile;
+Tile::Tile(const string &name, const string &description) : 
+    name_(name) , description_(description) , linkState_(0x00) {}
+
+const string& Tile::getName() const {
+    return name_;
 }
 
-Tile::Tile(const string &name, const string &description) : Tile() {
-    name_ = name;
-    description_ = description;
+const string& Tile::getDescription() const {
+    return description_;
 }
 
-const string& Tile::getName()        const { return name_; }
-const string& Tile::getDescription() const { return description_; }
-
-shared_ptr<Tile> Tile::getAdjacentTile(char direction) const {
+shared_ptr<Tile> Tile::getAdjacentTile(Direction direction) const {
     try {
         return adjacentTiles_.at(direction);
     }
@@ -40,17 +38,42 @@ shared_ptr<Tile> Tile::getAdjacentTile(char direction) const {
     }
 }
 
+Direction Tile::getDirection(shared_ptr<Tile> other) const {
+    for (auto [direction, tile] : adjacentTiles_) {
+        if (tile == other)
+            return direction; 
+    }
+    throw InvalidCoordinates("Tiles are not adjacent");
+}
+
+bool Tile::isLinkedTo(Direction direction) {
+    return linkState_ & direction;
+}
+
+void Tile::linkTo(Direction direction) {
+    linkState_ += direction;
+}
+
+void Tile::unlink(Direction direction) {
+    linkState_ -= direction;
+}
+
 void Tile::show(ostream& os) const {
     os << "-- " << name_ << " --" << endl;
     os << description_ << endl;
-    for (auto [direction, tile] : adjacentTiles_){
-        if (tile != noTile) {
-            os << tile->name_ << " is to the " << CARDINAL_DIRECTIONS.at(direction)
-                    << " (" << direction << ")" << endl;
-        }
+    for (auto [direction, tile] : adjacentTiles_) {
+        os << tile->name_ << " is to the " << directionToString(direction)
+            << " (" << directionToChar(direction) << ")" << endl;
     }
 }
 
-void Tile::setAdjacentTile(std::shared_ptr<Tile> newTile, char direction) {
-    adjacentTiles_[direction] = newTile;
+void Tile::link(std::shared_ptr<Tile> tile1, std::shared_ptr<Tile> tile2) {
+    Direction direction12 = tile1->getDirection(tile2);
+    tile1->linkTo(direction12);
+    Direction direction21 = tile2->getDirection(tile1);
+    tile2->linkTo(direction21);
+}
+
+void Tile::setAdjacency(shared_ptr<Tile> other, Direction direction) {
+    adjacentTiles_[direction] = other;
 }

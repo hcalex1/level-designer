@@ -6,8 +6,9 @@
 * Created 13 December 2021
 */
 
-#include "Tile.hpp"
 #include "Lookable.hpp"
+#include "Tile.hpp"
+#include "Navigator.hpp"
 
 #include <memory>
 #include <string>
@@ -17,14 +18,13 @@ public:
     Game (const std::shared_ptr<Tile>& startTile);
 
     void look(const Lookable& lookable = defaultLookable_) const;
-    void move(char direction);
     void executeCommand(const std::string& proword, const std::string& argument="");
     void start();
 
     static std::pair<std::string, std::string> parseCommand(const std::string& command);
 
 private:
-    std::shared_ptr<Tile> currentTile_;
+    Navigator navigator_;
 
     inline static const Lookable& defaultLookable_ = Tile{};
 };

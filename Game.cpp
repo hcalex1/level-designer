@@ -10,8 +10,7 @@
 #include "Game.hpp"
 #include "Tile.hpp"
 #include "Lookable.hpp"
-#include "CARDINAL_DIRECTIONS.h"
-#include "Exceptions/EmptyDirection.hpp"
+#include "cardinal.hpp"
 #include "Exceptions/InvalidCommand.hpp"
 #include "Exceptions/InvalidDirection.hpp"
 
@@ -21,33 +20,28 @@
 #include <sstream>
 
 using namespace std;
+using namespace cardinal;
 
 
-Game::Game(const shared_ptr<Tile>& startTile) : currentTile_(startTile) {}
+Game::Game(const shared_ptr<Tile>& startTile) : navigator_(Navigator{startTile}) {}
 
 void Game::look(const Lookable& lookable) const {
     if (lookable == defaultLookable_)
-        currentTile_->show(cout);
+        (*navigator_)->show(cout);
     else
         lookable.show(cout);
 }
 
-void Game::move(char direction) {
-    shared_ptr<Tile> nextTile = currentTile_->getAdjacentTile(direction);
-
-    if (nextTile == Tile::noTile)
-        throw EmptyDirection("No tile in this direction");
-
-    cout << "Going " << CARDINAL_DIRECTIONS.at(direction) << "...\n\n";
-    currentTile_ = nextTile;
-    look();
-}
-
 void Game::executeCommand(const string& proword, const string& argument) {
-    if (proword.size() == 1)
-        move(proword[0]);
-    else if (proword == "look" && argument == "")
+    if (proword.size() == 1) {
+        Direction direction = charToDirection(proword[0]);
+        navigator_.move(direction);
+        cout << "Going " << cardinal::directionToString(direction) << "...\n\n";
         look();
+    }
+    else if (proword == "look" && argument == "") {
+        look();
+    }
     else
         throw InvalidCommand("Unknown command");
 }

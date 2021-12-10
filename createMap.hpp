@@ -13,30 +13,25 @@
 #include <memory>
 #include <string>
 
-std::shared_ptr<Tile> createMap() {
+Map createMap() {
     Map map;
-    auto frontYard = std::make_shared<Tile>(Tile{"Front Yard", 
-        "There is circular driveway and a fountain"});
-    auto garage = std::make_shared<Tile>(Tile{"Garage", 
-        "There are four parking spaces."});
-    auto foyer = std::make_shared<Tile>(Tile{"Foyer", 
-        "There is a round table and a chandelier."});
-    auto livingRoom = std::make_shared<Tile>(Tile{"Living Room", 
-        "There are two large couches and a coffee table."});
-    auto guestHouse = std::make_shared<Tile>(Tile{"Guest House", 
-        "There is a bed and a kitchen."});
+    Tile frontYard  = Tile{"Front Yard",  "There is circular driveway and a fountain"};
+    Tile garage     = Tile{"Garage",      "There are four parking spaces."};
+    Tile foyer      = Tile{"Foyer",       "There is a round table and a chandelier."};
+    Tile livingRoom = Tile{"Living Room", "There are two large couches and a coffee table."};
+    Tile guestHouse = Tile{"Guest House", "There is a bed and a kitchen."};
 
-    map.setTile(frontYard,  { 0, 0});
-    map.setTile(garage,     { 1, 0});
-    map.setTile(foyer,      { 0, 1});
-    map.setTile(livingRoom, { 1, 1});
-    map.setTile(guestHouse, {-1, 0});
+    map.insert(frontYard,  { 0, 0});
+    map.insert(garage,     { 1, 0});
+    map.insert(foyer,      { 0, 1});
+    map.insert(livingRoom, { 1, 1});
+    map.insert(guestHouse, {-1, 0});
 
-    map.linkTiles({0,0}, { 1,0});
-    map.linkTiles({0,0}, { 0,1});
-    map.linkTiles({0,0}, {-1,0});
-    map.linkTiles({0,1}, { 1,1});
-    map.linkTiles({1,0}, { 1,1});
+    Tile::link(map.getTile({0, 0}), map.getTile({ 1, 0}));
+    Tile::link(map.getTile({0, 0}), map.getTile({ 0, 1}));
+    Tile::link(map.getTile({0, 0}), map.getTile({-1, 0}));
+    Tile::link(map.getTile({0, 1}), map.getTile({ 1, 1}));
+    Tile::link(map.getTile({1, 0}), map.getTile({ 1, 1}));
 
-    return map.getTile(std::pair(0,0));
+    return map;
 }

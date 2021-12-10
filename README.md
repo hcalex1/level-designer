@@ -14,7 +14,31 @@
 4. a *position* can only be occupied by one *tile* during the game
 
 ## Reference system:
-- 'E' is the direction of 0°.
-- 'N' is the direction of 90°.
-- 'W' is the direction of 180°.
-- 'S' is the direction of 270°.
+- *positions* are represented by two integers and are used as `std::pair<int, int>`.
+- NORTH is the direction represented by the vector ( 0, 1)
+- EAST  is the direction represented by the vector ( 1, 0)
+- SOUTH is the direction represented by the vector (-1, 0)
+- WEST  is the direction represented by the vector ( 0,-1)
+
+## Structure
+Level creation and loading will be seperate from the game. All the optimisation and rule/assumption enforcement and validation should be completed during level creation and loading. This allows for faster navigation and room loading.
+
+### The Tile class
+The `Tile` contains all the information necessary to navigate the *map*. This information is quickly accessible and does not require much computation.
+
+This information includes:
+- pointers to *adjacent tiles*
+- wether or not the *tile* are *linked*
+- information about the *tile* viewable by the *character*
+
+### The Map class
+The `Map` allows the level designer to set *adjacency* in a consistent manner respecting assumptions above. It stores all the *tiles* by their *position*. Therefore, it facilitates destruction of the *tiles* to free up memory when changing levels.
+ 
+### The Navigator class
+The `Navigator` is used to move through the *tiles*. It holds the current *position* and interprets the information in *tile* to only allow movement between *linked tiles*.
+
+### The Game class
+The `Game` interprets the player's commands, modifies the `Tile`s and `Navigator` accordingly and gives feedback to the player.
+
+### The Lookable class
+The `Lookable` class is an abstract class from which all classes with information viewable to the user will be derrived.

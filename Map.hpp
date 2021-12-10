@@ -18,13 +18,16 @@ to be used to link Tiles avoiding conflicts.
 class Map
 {
 public:
+    ~Map();
 
     unsigned size() const; 
     std::shared_ptr<Tile> getTile(std::pair<int, int>);
     std::pair<int, int> getStartPosition() const;
 
-    void setTile(const std::shared_ptr<Tile>&, std::pair<int, int>);
-    void linkTiles(std::pair<int, int>, std::pair<int, int>);
+    void insert(const Tile&, std::pair<int, int>);
+    void erase(std::pair<int, int>);
+
+    static double computeDistance(std::pair<int, int> position1, std::pair<int, int> position2);
 
 private:
     std::map<std::pair<int, int>, std::shared_ptr<Tile>> map_;
