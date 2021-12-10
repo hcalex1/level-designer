@@ -26,7 +26,7 @@ public:
     const std::string& getDescription() const;
     std::shared_ptr<Tile> getAdjacentTile(cardinal::Direction) const;
     cardinal::Direction getDirection(std::shared_ptr<Tile>) const;
-    bool isLinkedTo(cardinal::Direction direction);
+    bool isLinkedTo(cardinal::Direction direction) const;
 
     void linkTo(cardinal::Direction direction);
     void unlink(cardinal::Direction direction);

@@ -12,15 +12,12 @@
 #include "Exceptions/InvalidCoordinates.hpp"
 
 #include <memory>
-#include <stdexcept>
-#include <cmath>
 #include "cppitertools/range.hpp"
 
 using namespace std;
 using namespace cardinal;
 
 Map::~Map() {
-    // All tiles must be deleted due to circular references
     for (auto [position, tilePtr] : map_) {
         delete tilePtr.get();
     }
@@ -42,19 +39,20 @@ void Map::insert(const Tile& tile, pair<int, int> position) {
     if (map_[position] != nullptr)
         throw InvalidCoordinates("Position occupied");
 
-    pair<int, int> adjacent[4];
-    adjacent[0] = {position.first    , position.second - 1};
-    adjacent[1] = {position.first    , position.second + 1};
-    adjacent[2] = {position.first - 1, position.second    };
-    adjacent[3] = {position.first + 1, position.second    };
+    pair<int, int> adjacentPositions[4];
+    adjacentPositions[0] = {position.first    , position.second - 1};
+    adjacentPositions[1] = {position.first    , position.second + 1};
+    adjacentPositions[2] = {position.first - 1, position.second    };
+    adjacentPositions[3] = {position.first + 1, position.second    };
 
     auto newTile = make_shared<Tile>(tile);
     for (int i : iter::range(4)) {
-        if (map_[adjacent[i]] != nullptr) {
-            Direction toAdjacent = computeDirection(position, adjacent[i]);
-            Direction toNew      = computeDirection(adjacent[i], position);
-            newTile->adjacentTiles_[toAdjacent] = map_[adjacent[i]];
-            map_[adjacent[i]]->adjacentTiles_[toNew] = newTile;
+        auto adjTile = map_[adjacentPositions[i]];
+        if (adjTile != nullptr) {
+            Direction newToAdj= computeDirection(position, adjacentPositions[i]);
+            Direction adjToNew = computeDirection(adjacentPositions[i], position);
+            newTile->adjacentTiles_[newToAdj] = adjTile;
+            adjTile->adjacentTiles_[adjToNew] = newTile;
         }
     }
     map_[position] = newTile;

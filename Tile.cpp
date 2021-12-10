@@ -46,7 +46,7 @@ Direction Tile::getDirection(shared_ptr<Tile> other) const {
     throw InvalidCoordinates("Tiles are not adjacent");
 }
 
-bool Tile::isLinkedTo(Direction direction) {
+bool Tile::isLinkedTo(Direction direction) const{
     return linkState_ & direction;
 }
 
@@ -62,8 +62,10 @@ void Tile::show(ostream& os) const {
     os << "-- " << name_ << " --" << endl;
     os << description_ << endl;
     for (auto [direction, tile] : adjacentTiles_) {
-        os << tile->name_ << " is to the " << directionToString(direction)
-            << " (" << directionToChar(direction) << ")" << endl;
+        if (isLinkedTo(direction)) {
+            os << tile->name_ << " is to the " << directionToString(direction)
+                << " (" << directionToChar(direction) << ")" << endl;
+        }
     }
 }
 
