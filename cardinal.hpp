@@ -12,8 +12,6 @@
 
 #include <cmath>
 
-#define _USE_MATH_DEFINES
-
 namespace cardinal {
     enum Direction { NORTH = 0x01, EAST  = 0x02, SOUTH = 0x04, WEST  = 0x08 };
 
