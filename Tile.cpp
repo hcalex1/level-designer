@@ -51,11 +51,14 @@ bool Tile::isLinkedTo(Direction direction) const{
 }
 
 void Tile::linkTo(Direction direction) {
+    if (isLinkedTo(direction))
+        throw InvalidDirection("Link already exists");
     linkState_ += direction;
 }
 
 void Tile::unlink(Direction direction) {
-    linkState_ -= direction;
+    if (isLinkedTo(direction))
+        linkState_ -= direction;
 }
 
 void Tile::show(ostream& os) const {
