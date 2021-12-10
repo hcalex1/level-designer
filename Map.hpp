@@ -27,5 +27,5 @@ public:
     void linkTiles(std::pair<int, int>, std::pair<int, int>);
 
 private:
-    std::map<std::pair<int, int>, std::shared_ptr<Tile>> map_;
+    std::map<std::pair<int, int>, pair<>> map_;
 };
