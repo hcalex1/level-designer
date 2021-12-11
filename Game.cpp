@@ -40,9 +40,11 @@ void Game::executeCommand(const string& proword, const string& argument) {
         look();
     }
     else if (proword == "look" && argument == "") {
+        cout << "Taking another look... \n\n";
         look();
     }
     else if (proword == "exit" && argument == "") {
+        cout << "Exiting...\n\nThanks for playing!\n";
         running_ = false;
     }
     else
