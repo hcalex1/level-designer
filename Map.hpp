@@ -26,6 +26,7 @@ public:
     void erase(std::pair<int, int>);
 
     static double computeDistance(std::pair<int, int> position1, std::pair<int, int> position2);
+    static pair<int, int>* Map::getAdjacentPositions(pair<int, int> position);
 
 private:
     std::map<std::pair<int, int>, std::shared_ptr<Tile>> map_;

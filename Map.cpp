@@ -33,21 +33,25 @@ void Map::insert(const Tile& tile, pair<int, int> position) {
     if (map_[position] != nullptr)
         throw InvalidCoordinates("Position occupied");
 
-    pair<int, int> adjacentPositions[4];
-    adjacentPositions[0] = {position.first    , position.second - 1};
-    adjacentPositions[1] = {position.first    , position.second + 1};
-    adjacentPositions[2] = {position.first - 1, position.second    };
-    adjacentPositions[3] = {position.first + 1, position.second    };
-
+    auto adjacentPositions = getAdjacentPositions(position);
     auto newTile = make_shared<Tile>(tile);
     for (int i : iter::range(4)) {
         auto adjTile = map_[adjacentPositions[i]];
         if (adjTile != nullptr) {
-            Direction newToAdj= computeDirection(position, adjacentPositions[i]);
+            Direction newToAdj = computeDirection(position, adjacentPositions[i]);
             Direction adjToNew = computeDirection(adjacentPositions[i], position);
             newTile->adjacentTiles_[newToAdj] = adjTile;
             adjTile->adjacentTiles_[adjToNew] = newTile;
         }
     }
     map_[position] = newTile;
+}
+
+pair<int, int>* Map::getAdjacentPositions(pair<int, int> referencePosition) {
+    pair<int, int> positions[4];
+    positions[0] = {referencePosition.first    , referencePosition.second - 1};
+    positions[1] = {referencePosition.first    , referencePosition.second + 1};
+    positions[2] = {referencePosition.first - 1, referencePosition.second    };
+    positions[3] = {referencePosition.first + 1, referencePosition.second    };
+    return positions;
 }

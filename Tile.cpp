@@ -10,6 +10,7 @@
 #include "cardinal.hpp"
 #include "Exceptions/InvalidDirection.hpp"
 #include "Exceptions/InvalidCoordinates.hpp"
+#include "Exceptions/EmptyDirection.hpp"
 
 #include <string>
 #include <memory>
@@ -30,24 +31,25 @@ const string& Tile::getDescription() const {
 }
 
 shared_ptr<Tile> Tile::getAdjacentTile(Direction direction) {
-    try {
-        return shared_ptr<Tile>(adjacentTiles_.at(direction));
-    }
-    catch (out_of_range& e) {
-        throw InvalidDirection("Direction does not exist");
-    }
+    if (adjacentTiles_.at(direction).expired())
+        throw EmptyDirection("Direction does not exist");
+
+    return adjacentTiles_.at(direction).lock();
 }
 
 Direction Tile::getDirection(shared_ptr<Tile> other) const {
     for (auto [direction, tile] : adjacentTiles_) {
-        if (shared_ptr<Tile>(tile) == other)
+        if (!tile.expired() && tile.lock() == other)
             return direction; 
     }
     throw InvalidCoordinates("Tiles are not adjacent");
 }
 
 bool Tile::isLinkedTo(Direction direction) const{
-    return linkState_ & direction;
+    if (adjacentTiles_.at(direction).expired())
+        return false;
+    else
+        return linkState_ & direction;
 }
 
 void Tile::linkTo(Direction direction) {
@@ -65,8 +67,8 @@ void Tile::show(ostream& os) const {
     os << "-- " << name_ << " --" << endl;
     os << description_ << endl;
     for (auto [direction, tile] : adjacentTiles_) {
-        if (isLinkedTo(direction)) {
-            os << shared_ptr<Tile>(tile)->name_ << " is to the " << directionToString(direction)
+        if (!tile.expired() && isLinkedTo(direction)) {
+            os << tile.lock()->name_ << " is to the " << directionToString(direction)
                 << " (" << directionToChar(direction) << ")" << endl;
         }
     }
