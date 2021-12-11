@@ -15,37 +15,37 @@ namespace cardinal {
 
     constexpr Direction charToDirection(char c) {
         switch (c) {
-        case 'N': return NORTH;
-        case 'E': return EAST;
-        case 'S': return SOUTH;
-        case 'W': return WEST;
-        default : throw InvalidDirection("No such cardinal direction");
+            case 'N': return NORTH;
+            case 'E': return EAST;
+            case 'S': return SOUTH;
+            case 'W': return WEST;
+            default : throw InvalidDirection("No such cardinal direction");
         }
     }
 
     constexpr char directionToChar(Direction direction) {
         switch (direction) {
-        case NORTH: return 'N';
-        case EAST : return 'E';
-        case SOUTH: return 'S';
-        case WEST : return 'W';
-        default   : throw InvalidDirection("No such cardinal direction");
+            case NORTH: return 'N';
+            case EAST : return 'E';
+            case SOUTH: return 'S';
+            case WEST : return 'W';
+            default   : throw InvalidDirection("No such cardinal direction");
         }
     }
 
     constexpr const char* directionToString(Direction direction) {
         switch (direction) {
-        case NORTH: return "North";
-        case EAST : return "East";
-        case SOUTH: return "South";
-        case WEST : return "West";
-        default   : throw InvalidDirection("No such cardinal direction");
+            case NORTH: return "North";
+            case EAST : return "East";
+            case SOUTH: return "South";
+            case WEST : return "West";
+            default   : throw InvalidDirection("No such cardinal direction");
         }
     }
 
     constexpr Direction computeDirection(std::pair<int, int> start, std::pair<int, int> end) {
-        double deltaX = end.first - start.first;
-        double deltaY = end.second - start.second;
+        int deltaX = end.first - start.first;
+        int deltaY = end.second - start.second;
 
         if (deltaX == 0){
             if (deltaY > 0)
@@ -58,6 +58,6 @@ namespace cardinal {
             else if (deltaX < 0)
                 return WEST;
         }
-        throw std::domain_error("Target is not in a cardinal direction");
+        throw InvalidDirection("Target is not in a cardinal direction");
     }
 }

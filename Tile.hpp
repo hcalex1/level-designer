@@ -24,7 +24,7 @@ public:
 
     const std::string& getName() const;
     const std::string& getDescription() const;
-    std::shared_ptr<Tile> getAdjacentTile(cardinal::Direction) const;
+    std::shared_ptr<Tile> getAdjacentTile(cardinal::Direction);
     cardinal::Direction getDirection(std::shared_ptr<Tile>) const;
     bool isLinkedTo(cardinal::Direction direction) const;
 
@@ -39,7 +39,7 @@ private:
 
     std::string name_;
     std::string description_;
-    std::map<cardinal::Direction, std::shared_ptr<Tile>> adjacentTiles_;
+    std::map<cardinal::Direction, std::weak_ptr<Tile>> adjacentTiles_;
     std::uint8_t linkState_;
 
     friend Map;
