@@ -43,7 +43,7 @@ void Game::executeCommand(const string& proword, const string& argument) {
         look();
     }
     else if (proword == "exit" && argument == "") {
-        playing_ = false;
+        running_ = false;
     }
     else
         throw InvalidCommand("Unknown command");
@@ -59,7 +59,7 @@ void Game::start() {
             by Alex Hoang-Cao & Emile Watier\n\n";
     look();
 
-    while (playing_) {
+    while (running_) {
         cout << "\n> ";
 
         try { 

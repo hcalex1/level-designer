@@ -26,7 +26,7 @@ public:
     static std::pair<std::string, std::string> parseCommand(const std::string& command);
 
 private:
-    bool playing_ = true;
+    bool running_ = true;
     Navigator navigator_;
     inline static const Lookable& defaultLookable_ = Tile{};
 };
