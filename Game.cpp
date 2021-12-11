@@ -1,4 +1,4 @@
-/**
+﻿/**
 * This file consists of definitions for the Game class. It has methods to 
 * start the game loop, read user input and show information to the user.
 * \file   main.cpp
@@ -42,6 +42,9 @@ void Game::executeCommand(const string& proword, const string& argument) {
     else if (proword == "look" && argument == "") {
         look();
     }
+    else if (proword == "exit" && argument == "") {
+        playing_ = false;
+    }
     else
         throw InvalidCommand("Unknown command");
 }
@@ -56,7 +59,7 @@ void Game::start() {
             by Alex Hoang-Cao & Emile Watier\n\n";
     look();
 
-    while (true) {
+    while (playing_) {
         cout << "\n> ";
 
         try { 
