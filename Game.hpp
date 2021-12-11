@@ -6,6 +6,8 @@
 * Created 13 December 2021
 */
 
+#pragma once
+
 #include "Lookable.hpp"
 #include "Tile.hpp"
 #include "Navigator.hpp"

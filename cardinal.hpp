@@ -10,8 +10,6 @@
 
 #include "Exceptions/InvalidDirection.hpp"
 
-#include <cmath>
-
 namespace cardinal {
     enum Direction { NORTH = 0x01, EAST  = 0x02, SOUTH = 0x04, WEST  = 0x08 };
 
@@ -48,12 +46,18 @@ namespace cardinal {
     constexpr Direction computeDirection(std::pair<int, int> start, std::pair<int, int> end) {
         double deltaX = end.first - start.first;
         double deltaY = end.second - start.second;
-        const double rad = atan2(deltaX, deltaY);
 
-        if      (rad ==  0.0)    return NORTH;
-        else if (rad ==  M_PI_2) return EAST;
-        else if (rad ==  M_PI)   return SOUTH;
-        else if (rad == -M_PI_2) return WEST;
-        else throw std::domain_error("Target is not in a cardinal direction");
+        if (deltaX == 0){
+            if (deltaY > 0)
+                return NORTH;
+            else if (deltaY < 0)
+                return SOUTH;
+        } else if (deltaY == 0){
+            if (deltaX > 0)
+                return EAST;
+            else if (deltaX < 0)
+                return WEST;
+        }
+        throw std::domain_error("Target is not in a cardinal direction");
     }
 }

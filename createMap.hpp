@@ -7,6 +7,8 @@
 * Created 13 December 2021
 */
 
+#pragma once
+
 #include "Map.hpp"
 #include "Tile.hpp"
 
