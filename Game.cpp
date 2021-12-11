@@ -1,8 +1,8 @@
 ﻿/**
 * This file consists of definitions for the Game class. It has methods to 
 * start the game loop, read user input and show information to the user.
-* \file   main.cpp
-* \author Alex Hoang-Cao and Emile Watier
+* \file   Game.cpp
+* \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */
@@ -40,9 +40,11 @@ void Game::executeCommand(const string& proword, const string& argument) {
         look();
     }
     else if (proword == "look" && argument == "") {
+        cout << "Taking another look... \n\n";
         look();
     }
     else if (proword == "exit" && argument == "") {
+        cout << "Exiting...\n\nThanks for playing!\n";
         running_ = false;
     }
     else

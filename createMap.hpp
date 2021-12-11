@@ -1,8 +1,8 @@
 /**
-* This file constains the definition for the createMap function.
+* This file contains the definition for the createMap function.
 * It creates a map and returns the start Tile.
-* \file   main.cpp
-* \author Alex Hoang-Cao and Emile Watier
+* \file   createMap.hpp
+* \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */
@@ -17,7 +17,7 @@
 
 Map createMap() {
     Map map;
-    Tile frontYard  = Tile{"Front Yard",  "There is circular driveway and a fountain"};
+    Tile frontYard  = Tile{"Front Yard",  "There is a circular driveway and a fountain."};
     Tile garage     = Tile{"Garage",      "There are four parking spaces."};
     Tile foyer      = Tile{"Foyer",       "There is a round table and a chandelier."};
     Tile livingRoom = Tile{"Living Room", "There are two large couches and a coffee table."};

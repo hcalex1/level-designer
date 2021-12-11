@@ -1,7 +1,7 @@
 /**
 * This program consists of the first deliverable of the Deadly Rooms game.
 * \file   main.cpp
-* \author Alex Hoang-Cao and Emile Watier
+* \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */
@@ -9,9 +9,6 @@
 #include "createMap.hpp"
 #include "Game.hpp"
 
-// #include "bibliotheque_cours.hpp"
-// #include "verification_allocation.hpp"
-// #include "debogage_memoire.hpp"
 
 using namespace std;
 
