@@ -1,4 +1,4 @@
-/**
+﻿/**
 * This file constains the declarations and prototypes for the Game class.
 * \file   main.cpp
 * \author Alex Hoang-Cao and Emile Watier
@@ -26,7 +26,7 @@ public:
     static std::pair<std::string, std::string> parseCommand(const std::string& command);
 
 private:
+    bool playing_ = true;
     Navigator navigator_;
-
     inline static const Lookable& defaultLookable_ = Tile{};
 };
