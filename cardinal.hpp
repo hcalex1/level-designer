@@ -1,7 +1,7 @@
 /**
 * This file contains the Cardinal library.
-* \file   main.cpp
-* \author Alex Hoang-Cao and Emile Watier
+* \file   cardinal.hpp
+* \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */
