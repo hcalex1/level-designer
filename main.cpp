@@ -9,6 +9,10 @@
 #include "createMap.hpp"
 #include "Game.hpp"
 
+// #include "bibliotheque_cours.hpp"
+// #include "verification_allocation.hpp"
+// #include "debogage_memoire.hpp"
+
 using namespace std;
 
 int main() {

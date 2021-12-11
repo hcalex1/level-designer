@@ -17,12 +17,6 @@
 using namespace std;
 using namespace cardinal;
 
-Map::~Map() {
-    for (auto [position, tilePtr] : map_) {
-        delete tilePtr.get();
-    }
-}
-
 unsigned Map::size() const {
     return map_.size();
 }
