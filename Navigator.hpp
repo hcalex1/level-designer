@@ -1,3 +1,12 @@
+/**
+* This file consists of declaratiosn and definitions for the Navigator class. 
+It is used to move through the tiles while respecting the travel rules.
+* \file   Navigator.hpp
+* \authors Alex Hoang-Cao and Emile Watier
+* \date   13 December 2021
+* Created 13 December 2021
+*/
+
 #pragma once
 
 #include "Tile.hpp"
