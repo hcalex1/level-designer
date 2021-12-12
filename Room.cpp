@@ -1,6 +1,6 @@
 /**
 * This file contains the definitions for the Room class.
-* \file   Tile.hpp
+* \file   Room.cpp
 * \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021

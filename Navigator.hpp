@@ -1,6 +1,6 @@
 /**
 * This file consists of declarations for the Navigator class. 
-It is used to move through the tiles while respecting the travel rules.
+* It is used to move through the tiles while respecting the travel rules.
 * \file   Navigator.hpp
 * \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021

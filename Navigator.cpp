@@ -1,7 +1,7 @@
 /**
 * This file consists of definitions for the Navigator class. 
-It is used to move through the tiles while respecting the travel rules.
-* \file   Navigator.hpp
+* It is used to move through the tiles while respecting the travel rules.
+* \file   Navigator.cpp
 * \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
