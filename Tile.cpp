@@ -22,7 +22,7 @@ Tile::Tile(const Room & room) : room_(room), linkState_(0x00) {}
 
 Direction Tile::getDirection(shared_ptr<Tile> other) const {
     for (auto [direction, tile] : adjacentTiles_) {
-        if (tile == other)
+        if (tile.lock() == other)
             return direction; 
     }
     throw InvalidCoordinates("Tiles are not adjacent");

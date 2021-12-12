@@ -26,10 +26,14 @@ using namespace cardinal;
 Game::Game(const Navigator& navigator) : navigator_(navigator) {}
 
 void Game::look(const Lookable& lookable) const {
-    if (lookable == defaultLookable_)
-        (*navigator_).show(cout);
-    else
+    if (lookable == defaultLookable_) {
+        Room &room  = *navigator_;
+        room.show(cout);
+        navigator_.show(cout);
+    }
+    else {
         lookable.show(cout);
+    }
 }
 
 void Game::executeCommand(const string& proword, const string& argument) {
