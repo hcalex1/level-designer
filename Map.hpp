@@ -1,9 +1,9 @@
 /**
-* This file constains the declarations and prototypes for the Map class. This class is 
-used to manage Tiles with the assumptions laid out in the README.md file. It is intended
-to be used to link Tiles avoiding conflicts.
-* \file   main.cpp
-* \author Alex Hoang-Cao and Emile Watier
+* This file contains the declarations and prototypes for the Map class. This class is 
+* used to manage Tiles with the assumptions laid out in the README.md file. 
+* It is intended to be used to link Tiles and avoid conflicts.
+* \file   Map.hpp
+* \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */
@@ -19,8 +19,6 @@ to be used to link Tiles avoiding conflicts.
 class Map
 {
 public:
-    ~Map();
-
     unsigned size() const; 
     Navigator getNavigator(std::pair<int, int>);
 

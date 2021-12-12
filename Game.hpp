@@ -1,10 +1,12 @@
-/**
-* This file constains the declarations and prototypes for the Game class.
-* \file   main.cpp
-* \author Alex Hoang-Cao and Emile Watier
+﻿/**
+* This file contains the declarations and prototypes for the Game class.
+* \file   Game.hpp
+* \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */
+
+#pragma once
 
 #include "Lookable.hpp"
 #include "Room.hpp"
@@ -24,6 +26,7 @@ public:
     static std::pair<std::string, std::string> parseCommand(const std::string& command);
 
 private:
+    bool running_ = true;
     Navigator navigator_;
     inline static const Lookable& defaultLookable_ = Room{};
 };

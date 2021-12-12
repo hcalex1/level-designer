@@ -1,7 +1,7 @@
 /**
 * This file consists of definitions for the Tile class.
-* \file   main.cpp
-* \author Alex Hoang-Cao and Emile Watier
+* \file   Tile.cpp
+* \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
 */
@@ -10,6 +10,7 @@
 #include "cardinal.hpp"
 #include "Exceptions/InvalidDirection.hpp"
 #include "Exceptions/InvalidCoordinates.hpp"
+#include "Exceptions/EmptyDirection.hpp"
 
 #include <string>
 #include <memory>
@@ -29,7 +30,10 @@ Direction Tile::getDirection(shared_ptr<Tile> other) const {
 }
 
 bool Tile::isLinkedTo(Direction direction) const{
-    return linkState_ & direction;
+    if (adjacentTiles_.at(direction).expired())
+        return false;
+    else
+        return linkState_ & direction;
 }
 
 void Tile::linkTo(Direction direction) {
