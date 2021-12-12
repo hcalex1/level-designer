@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Lookable.hpp"
+#include "Room.hpp"
 #include "cardinal.hpp"
 
 #include <string>
@@ -17,30 +17,24 @@
 #include <memory>
 
 class Map;
-class Tile : public Lookable {
+class Navigator;
+class Tile {
 public:
-    Tile() = default;
-    Tile(const std::string &name, const std::string &description="");
+    Tile(const Room&);
 
-    const std::string& getName() const;
-    const std::string& getDescription() const;
-    std::shared_ptr<Tile> getAdjacentTile(cardinal::Direction) const;
     cardinal::Direction getDirection(std::shared_ptr<Tile>) const;
     bool isLinkedTo(cardinal::Direction direction) const;
 
     void linkTo(cardinal::Direction direction);
     void unlink(cardinal::Direction direction);
-    virtual void show(std::ostream&) const override;
-
-    static void link(std::shared_ptr<Tile>, std::shared_ptr<Tile>);
     
 private:
-    void setAdjacency(std::shared_ptr<Tile>, cardinal::Direction);
-
-    std::string name_;
-    std::string description_;
-    std::map<cardinal::Direction, std::shared_ptr<Tile>> adjacentTiles_;
+    Room room_;
+    std::map<cardinal::Direction, std::weak_ptr<Tile>> adjacentTiles_;
     std::uint8_t linkState_;
 
+    void setAdjacency(std::shared_ptr<Tile>, cardinal::Direction);
+
     friend Map;
+    friend Navigator;
 };

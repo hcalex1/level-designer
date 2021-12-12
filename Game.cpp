@@ -8,11 +8,11 @@
 */
 
 #include "Game.hpp"
-#include "Tile.hpp"
 #include "Lookable.hpp"
 #include "cardinal.hpp"
 #include "Exceptions/InvalidCommand.hpp"
 #include "Exceptions/InvalidDirection.hpp"
+#include "Exceptions/EmptyDirection.hpp"
 
 #include <memory>
 #include <stdexcept>
@@ -23,11 +23,11 @@ using namespace std;
 using namespace cardinal;
 
 
-Game::Game(const shared_ptr<Tile>& startTile) : navigator_(Navigator{startTile}) {}
+Game::Game(const Navigator& navigator) : navigator_(navigator) {}
 
 void Game::look(const Lookable& lookable) const {
     if (lookable == defaultLookable_)
-        (*navigator_)->show(cout);
+        (*navigator_).show(cout);
     else
         lookable.show(cout);
 }

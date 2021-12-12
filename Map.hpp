@@ -11,6 +11,7 @@ to be used to link Tiles avoiding conflicts.
 #pragma once
 
 #include "Tile.hpp"
+#include "Room.hpp"
 
 #include <utility>
 #include <memory>
@@ -21,11 +22,11 @@ public:
     ~Map();
 
     unsigned size() const; 
-    std::shared_ptr<Tile> getTile(std::pair<int, int>);
-    std::pair<int, int> getStartPosition() const;
+    Navigator getNavigator(std::pair<int, int>);
 
-    void insert(const Tile&, std::pair<int, int>);
+    void insert(const Room&, std::pair<int, int>);
     void erase(std::pair<int, int>);
+    void link(std::pair<int, int>, std::pair<int, int>);
 
     static double computeDistance(std::pair<int, int> position1, std::pair<int, int> position2);
 

@@ -1,30 +1,35 @@
+/**
+* This file consists of declarations for the Navigator class. 
+It is used to move through the tiles while respecting the travel rules.
+* \file   Navigator.hpp
+* \authors Alex Hoang-Cao and Emile Watier
+* \date   13 December 2021
+* Created 13 December 2021
+*/
+
 #pragma once
 
 #include "Tile.hpp"
+#include "Room.hpp"
+#include "Lookable.hpp"
 #include "cardinal.hpp"
-#include "Exceptions/EmptyDirection.hpp"
 
-#include <memory>
-
-class Navigator {
+class Navigator : public Lookable {
 public:
-    Navigator(std::shared_ptr<Tile> tile) : currentTile_(tile) {}
+    Navigator(std::shared_ptr<Tile> tile);
 
-    std::shared_ptr<Tile> operator*() {
-        return currentTile_;
-    }
+    void linkTo(cardinal::Direction direction);
 
-    std::shared_ptr<Tile> operator*() const {
-        return currentTile_;
-    }
+    void unlink(cardinal::Direction direction);
 
-    void move(cardinal::Direction direction) {
-        if (not currentTile_->isLinkedTo(direction))
-            throw EmptyDirection("No tile in this direction");
+    Room& operator*();
 
-        currentTile_ = currentTile_->getAdjacentTile(direction);
-    }
+    Room& operator*() const;
+
+    void move(cardinal::Direction direction);
+
+    virtual void show(std::ostream&) const override;
 
 private:
-    std::shared_ptr<Tile> currentTile_;
+    std::shared_ptr<Tile> tile_;
 };

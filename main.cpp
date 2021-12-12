@@ -13,9 +13,6 @@ using namespace std;
 
 int main() {
     Map map = createMap();
-
-    auto startTile = map.getTile({0,0});
-    Game game{startTile};
-
+    Game game{map.getNavigator({0,0})};
     game.start();
 }

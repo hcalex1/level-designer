@@ -8,6 +8,7 @@
 */
 
 #include "Map.hpp"
+#include "Navigator.hpp"
 #include "cardinal.hpp"
 #include "Exceptions/InvalidCoordinates.hpp"
 
@@ -27,18 +28,19 @@ unsigned Map::size() const {
     return map_.size();
 }
 
-shared_ptr<Tile> Map::getTile(pair<int, int> position) {
-    return map_[position];
+Navigator Map::getNavigator(pair<int, int> position) {
+    return Navigator(map_[position]);
 }
 
 void Map::erase(pair<int, int> position) {
     map_.erase(position);
 }
 
-void Map::insert(const Tile& tile, pair<int, int> position) {
+void Map::insert(const Room& room, pair<int, int> position) {
     if (map_[position] != nullptr)
         throw InvalidCoordinates("Position occupied");
 
+    Tile tile{room};
     pair<int, int> adjacentPositions[4];
     adjacentPositions[0] = {position.first    , position.second - 1};
     adjacentPositions[1] = {position.first    , position.second + 1};
@@ -51,9 +53,16 @@ void Map::insert(const Tile& tile, pair<int, int> position) {
         if (adjTile != nullptr) {
             Direction newToAdj= computeDirection(position, adjacentPositions[i]);
             Direction adjToNew = computeDirection(adjacentPositions[i], position);
-            newTile->adjacentTiles_[newToAdj] = adjTile;
-            adjTile->adjacentTiles_[adjToNew] = newTile;
+            newTile->setAdjacency(adjTile, newToAdj);
+            adjTile->setAdjacency(newTile, adjToNew);
         }
     }
     map_[position] = newTile;
+}
+
+void Map::link(std::pair<int, int> position1, std::pair<int, int> position2) {
+    auto tile1 = map_[position1];
+    auto tile2 = map_[position2];
+    Direction direction12 = tile1->getDirection(tile2);
+    tile1->linkTo(direction12);
 }

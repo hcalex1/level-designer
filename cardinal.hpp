@@ -45,6 +45,16 @@ namespace cardinal {
         }
     }
 
+    constexpr Direction reverseDirection(Direction direction) {
+        switch (direction) {
+            case NORTH: return SOUTH;
+            case EAST : return WEST;
+            case SOUTH: return NORTH;
+            case WEST : return EAST;
+            default   : throw InvalidDirection("No such cardinal direction");
+        }
+    }
+
     constexpr Direction computeDirection(std::pair<int, int> start, std::pair<int, int> end) {
         double deltaX = end.first - start.first;
         double deltaY = end.second - start.second;

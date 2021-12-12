@@ -7,7 +7,7 @@
 */
 
 #include "Lookable.hpp"
-#include "Tile.hpp"
+#include "Room.hpp"
 #include "Navigator.hpp"
 
 #include <memory>
@@ -15,7 +15,7 @@
 
 class Game {
 public:
-    Game (const std::shared_ptr<Tile>& startTile);
+    Game (const Navigator&);
 
     void look(const Lookable& lookable = defaultLookable_) const;
     void executeCommand(const std::string& proword, const std::string& argument="");
@@ -25,6 +25,5 @@ public:
 
 private:
     Navigator navigator_;
-
-    inline static const Lookable& defaultLookable_ = Tile{};
+    inline static const Lookable& defaultLookable_ = Room{};
 };

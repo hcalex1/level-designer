@@ -8,18 +8,18 @@
 */
 
 #include "Map.hpp"
-#include "Tile.hpp"
+#include "Room.hpp"
 
 #include <memory>
 #include <string>
 
 Map createMap() {
     Map map;
-    Tile frontYard  = Tile{"Front Yard",  "There is circular driveway and a fountain"};
-    Tile garage     = Tile{"Garage",      "There are four parking spaces."};
-    Tile foyer      = Tile{"Foyer",       "There is a round table and a chandelier."};
-    Tile livingRoom = Tile{"Living Room", "There are two large couches and a coffee table."};
-    Tile guestHouse = Tile{"Guest House", "There is a bed and a kitchen."};
+    Room frontYard  = Room{"Front Yard",  "There is a circular driveway and a fountain."};
+    Room garage     = Room{"Garage",      "There are four parking spaces."};
+    Room foyer      = Room{"Foyer",       "There is a round table and a chandelier."};
+    Room livingRoom = Room{"Living Room", "There are two large couches and a coffee table."};
+    Room guestHouse = Room{"Guest House", "There is a bed and a kitchen."};
 
     map.insert(frontYard,  { 0, 0});
     map.insert(garage,     { 1, 0});
@@ -27,11 +27,11 @@ Map createMap() {
     map.insert(livingRoom, { 1, 1});
     map.insert(guestHouse, {-1, 0});
 
-    Tile::link(map.getTile({0, 0}), map.getTile({ 1, 0}));
-    Tile::link(map.getTile({0, 0}), map.getTile({ 0, 1}));
-    Tile::link(map.getTile({0, 0}), map.getTile({-1, 0}));
-    Tile::link(map.getTile({0, 1}), map.getTile({ 1, 1}));
-    Tile::link(map.getTile({1, 0}), map.getTile({ 1, 1}));
+    map.link({0, 0}, { 1, 0});
+    map.link({0, 0}, { 0, 1});
+    map.link({0, 0}, {-1, 0});
+    map.link({0, 1}, { 1, 1});
+    map.link({1, 0}, { 1, 1});
 
     return map;
 }
