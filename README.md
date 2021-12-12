@@ -31,6 +31,8 @@ This information includes:
 - pointers to *adjacent tiles*
 - wether or not the *tile* are *linked*
 
+Link are tracked in a bitmap.
+
 ### The Map class
 The `Map` allows the level designer to set *adjacency* in a consistent manner respecting assumptions above. It stores all the *tiles* by their *position*. Therefore, it facilitates destruction of the *tiles* to free up memory when changing levels.
  

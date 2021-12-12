@@ -31,7 +31,7 @@ public:
 private:
     Room room_;
     std::map<cardinal::Direction, std::weak_ptr<Tile>> adjacentTiles_;
-    std::uint8_t linkState_;
+    std::uint8_t linkState_; // This is a bitmap for the links to the other Tiles
 
     void setAdjacency(std::shared_ptr<Tile>, cardinal::Direction);
 
