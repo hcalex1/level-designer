@@ -22,7 +22,7 @@
 - WEST  is the direction represented by the vector ( 0,-1)
 
 ## Structure
-Level creation and loading will be seperate from the game. All the optimisation and rule/assumption enforcement and validation should be completed during level creation and loading. This allows for faster navigation and room loading.
+Level creation and loading will be seperate from the game. All the optimisation and rule/assumption enforcement and validation should be completed during level creation and loading. This allows for faster navigation and room loading. For the mapping system, we can think of `Map` as a specialized 2D container, of `Navigator` as the iterator for this 2D container and `Tile` as a node in the container.
 
 ### The Tile class
 The `Tile` contains all the information necessary to navigate the *map*. This information is quickly accessible and does not require much computation.
