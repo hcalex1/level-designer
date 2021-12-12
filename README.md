@@ -6,6 +6,7 @@
 - *position*: The reference system for location in 2D. It is chracterized two integers (x, y).
 - *link*:  *tile*1 is *linked* to *tile*2 when the *character* can move from that *tile*1 to the *tile*2.
 - *adjacent*: Two *tiles* are *adjacent* when they are at a distance of 1. This limits *adjacency* to *tiles* in cardinal directions of eachother.
+- *room*: The object occupying a *tile* with which a *character* can interact.
 
 ## Assumptions:
 1. *tiles* can only be *linked* to *adjacent tiles* 
@@ -29,7 +30,6 @@ The `Tile` contains all the information necessary to navigate the *map*. This in
 This information includes:
 - pointers to *adjacent tiles*
 - wether or not the *tile* are *linked*
-- information about the *tile* viewable by the *character*
 
 ### The Map class
 The `Map` allows the level designer to set *adjacency* in a consistent manner respecting assumptions above. It stores all the *tiles* by their *position*. Therefore, it facilitates destruction of the *tiles* to free up memory when changing levels.
@@ -42,3 +42,6 @@ The `Game` interprets the player's commands, modifies the `Tile`s and `Navigator
 
 ### The Lookable class
 The `Lookable` class is an abstract class from which all classes with information viewable to the user will be derrived.
+
+### The Room class
+The `Room` class is the object with which the player interacts. I contains information about the *room* viewable by the *character*. More functionality can be added to this class.

@@ -1,3 +1,10 @@
+/**
+* This file contains the definitions for the Room class.
+* \file   Tile.hpp
+* \authors Alex Hoang-Cao and Emile Watier
+* \date   13 December 2021
+* Created 13 December 2021
+*/
 #include "Room.hpp"
 
 #include <string>
