@@ -37,7 +37,7 @@ Room& Navigator::operator*() const {
 }
 
 void Navigator::move(cardinal::Direction direction) {
-    if (not tile_->isLinkedTo(direction))
+    if (!tile_->isLinkedTo(direction))
         throw EmptyDirection("No tile in this direction");
 
     tile_ = tile_->adjacentTiles_[direction].lock();

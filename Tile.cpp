@@ -30,7 +30,8 @@ Direction Tile::getDirection(shared_ptr<Tile> other) const {
 }
 
 bool Tile::isLinkedTo(Direction direction) const{
-    if (adjacentTiles_.at(direction).expired())
+    if (adjacentTiles_.find(direction) != adjacentTiles_.end() &&
+        adjacentTiles_.at(direction).expired())
         return false;
     else
         return linkState_ & direction;
