@@ -18,7 +18,7 @@ class Navigator : public Lookable {
 public:
     Navigator(std::shared_ptr<Tile> tile);
 
-    void linkTo(cardinal::Direction direction);
+    void link(cardinal::Direction direction);
 
     void unlink(cardinal::Direction direction);
 

@@ -41,7 +41,7 @@ bool Tile::isLinkedTo(Direction direction) const{
     }
 }
 
-void Tile::linkTo(Direction direction) {
+void Tile::link(Direction direction) {
     auto other = adjacentTiles_[direction].lock();
     Direction rDirection = reverseDirection(direction);
     if (!isLinkedTo(direction))

@@ -25,7 +25,7 @@ public:
     cardinal::Direction getDirection(std::shared_ptr<Tile>) const;
     bool isLinkedTo(cardinal::Direction direction) const;
 
-    void linkTo(cardinal::Direction direction);
+    void link(cardinal::Direction direction);
     void unlink(cardinal::Direction direction);
     
 private:

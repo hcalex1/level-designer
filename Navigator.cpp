@@ -20,8 +20,8 @@ using namespace std;
 
 Navigator::Navigator(std::shared_ptr<Tile> tile) : tile_(tile) {}
 
-void Navigator::linkTo(cardinal::Direction direction) {
-    tile_->linkTo(direction);
+void Navigator::link(cardinal::Direction direction) {
+    tile_->link(direction);
 }
 
 void Navigator::unlink(cardinal::Direction direction) {

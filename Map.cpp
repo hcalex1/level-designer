@@ -57,5 +57,5 @@ void Map::link(std::pair<int, int> position1, std::pair<int, int> position2) {
     auto tile1 = map_[position1];
     auto tile2 = map_[position2];
     Direction direction12 = tile1->getDirection(tile2);
-    tile1->linkTo(direction12);
+    tile1->link(direction12);
 }
