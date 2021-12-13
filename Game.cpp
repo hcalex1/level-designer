@@ -78,7 +78,7 @@ void Game::start() {
 }
 
 pair<string, string> Game::parseCommand(const string& command) {
-    int split = command.find(" ");
+    auto split = command.find(" ");
     if (split != string::npos) {
         string proword  = command.substr(0, split - 1);
         string argument = command.substr(split);
