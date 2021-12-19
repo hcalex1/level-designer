@@ -11,7 +11,7 @@
 #include "Exceptions/InvalidDirection.hpp"
 
 namespace cardinal {
-    enum Direction { NORTH = 'N', EAST  = 'E', SOUTH = 'S', WEST  = 'W' };
+    enum Direction { NORTH = 'N', EAST  = 'E', SOUTH = 'S', WEST  = 'W', count = 4 };
 
     constexpr const char* directionToString(Direction direction) {
         switch (direction) {

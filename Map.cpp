@@ -14,6 +14,7 @@
 
 #include <memory>
 #include "cppitertools/range.hpp"
+#include <cmath>
 
 using namespace std;
 using namespace cardinal;
@@ -41,7 +42,7 @@ void Map::insert(const Room& room, pair<int, int> position) {
     adjacentPositions[2] = {position.first - 1, position.second    };
     adjacentPositions[3] = {position.first + 1, position.second    };
     auto newTile = make_shared<Tile>(tile);
-    for (int i : iter::range(4)) {
+    for (int i : iter::range(static_cast<int>(Direction::count))) {
         auto adjTile = map_[adjacentPositions[i]];
         if (adjTile != nullptr) {
             Direction newToAdj = computeDirection(position, adjacentPositions[i]);
@@ -54,8 +55,18 @@ void Map::insert(const Room& room, pair<int, int> position) {
 }
 
 void Map::link(std::pair<int, int> position1, std::pair<int, int> position2) {
+    if (computeDistance(position1, position2) != 1.0) {
+        throw InvalidCoordinates("Positions must me adjacent to be linked");
+    }
+
     auto tile1 = map_[position1];
     auto tile2 = map_[position2];
     Direction direction12 = tile1->getDirection(tile2);
     tile1->link(direction12);
+}
+
+double Map::computeDistance(std::pair<int, int> position1, std::pair<int, int> position2) {
+    int deltaX = position2.first  - position1.first;
+    int deltaY = position2.second - position1.second;
+    return hypot(deltaX, deltaY);
 }
