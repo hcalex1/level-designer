@@ -32,7 +32,7 @@ Room& Navigator::operator*() {
     return tile_->room_;
 }
 
-Room& Navigator::operator*() const {
+const Room& Navigator::operator*() const {
     return tile_->room_;
 }
 

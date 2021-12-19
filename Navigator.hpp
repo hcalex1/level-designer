@@ -24,7 +24,7 @@ public:
 
     Room& operator*();
 
-    Room& operator*() const;
+    const Room& operator*() const;
 
     void move(cardinal::Direction direction);
 

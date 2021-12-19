@@ -27,7 +27,7 @@ Game::Game(const Navigator& navigator) : navigator_(navigator) {}
 
 void Game::look(const Lookable& lookable) const {
     if (lookable == defaultLookable_) {
-        Room &room  = *navigator_;
+        const Room &room  = *navigator_;
         room.show(cout);
         navigator_.show(cout);
     }
