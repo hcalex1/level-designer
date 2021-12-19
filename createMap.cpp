@@ -31,5 +31,12 @@ Map createMap() {
     map.link({1, 0}, { 1, 1});
     map.link({0, 1}, {-1, 1});
 
+    // map.link("Front Yard" , "Garage");
+    // map.link("Front Yard" , "Guest House");
+    // map.link("Front Yard" , "Foyer");
+    // map.link("Foyer"      , "Dining Room");
+    // map.link("Foyer"      , "Living Room");
+    // map.link("Living Room", "Garage");
+
     return map;
 }

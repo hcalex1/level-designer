@@ -27,11 +27,27 @@ Navigator Map::getNavigator(pair<int, int> position) {
     return Navigator(map_[position]);
 }
 
+// pair<int, int> Map::getPosition(const string& roomName) const {
+//     for (auto [position, tile] : map_) {
+//         if (tile->room_.getName() == roomName)
+//             return position;
+//     }
+//     throw domain_error("No such room");
+// }
+
+// Room& Map::getRoom(pair<int, int> position) {
+//     return map_[position]->room_;
+// }
+
+// Room& Map::getRoom(const string& roomName) {
+//     return getRoom(getPosition(roomName));
+// }
+
 void Map::erase(pair<int, int> position) {
     map_.erase(position);
 }
 
-void Map::insert(const Room& room, pair<int, int> position) {
+void Map::insert( pair<int, int> position, const Room& room) {
     if (map_[position] != nullptr)
         throw InvalidCoordinates("Position occupied");
 
@@ -54,7 +70,11 @@ void Map::insert(const Room& room, pair<int, int> position) {
     map_[position] = newTile;
 }
 
-void Map::link(std::pair<int, int> position1, std::pair<int, int> position2) {
+void Map::insert(pair<int, int> position, const string& roomName, const string& roomDescription) {
+    insert(position, Room(roomName, roomDescription));
+}
+
+void Map::link(pair<int, int> position1, pair<int, int> position2) {
     if (computeDistance(position1, position2) != 1.0) {
         throw InvalidCoordinates("Positions must me adjacent to be linked");
     }
@@ -65,7 +85,11 @@ void Map::link(std::pair<int, int> position1, std::pair<int, int> position2) {
     tile1->link(direction12);
 }
 
-double Map::computeDistance(std::pair<int, int> position1, std::pair<int, int> position2) {
+// void Map::link(const string& roomName1, const string& roomName2) {
+//     link(getPosition(roomName1), getPosition(roomName2));
+// }
+
+double Map::computeDistance(pair<int, int> position1, pair<int, int> position2) {
     int deltaX = position2.first  - position1.first;
     int deltaY = position2.second - position1.second;
     return hypot(deltaX, deltaY);
