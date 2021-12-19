@@ -38,7 +38,7 @@ void Game::look(const Lookable& lookable) const {
 
 void Game::executeCommand(const string& proword, const string& argument) {
     if (proword.size() == 1) {
-        Direction direction = charToDirection(proword[0]);
+        Direction direction = static_cast<Direction>(proword[0]);
         navigator_.move(direction);
         cout << "Going " << cardinal::directionToString(direction) << "...\n\n";
         look();

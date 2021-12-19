@@ -32,7 +32,7 @@ Map createMap() {
     map.link({0, 0}, { 1, 0});
     map.link({0, 0}, { 0, 1});
     map.link({0, 0}, {-1, 0});
-    map.link({0, 1}, { 1, 1});
+    // map.link({0, 1}, { 1, 1});
     map.link({1, 0}, { 1, 1});
 
     return map;

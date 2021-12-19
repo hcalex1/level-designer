@@ -47,7 +47,7 @@ void Navigator::show(std::ostream& os) const {
     for (auto [direction, tile] : tile_->adjacentTiles_) {
         if (!tile.expired() && tile_->isLinkedTo(direction)) {
             os << tile.lock()->room_.getName() << " is to the " << directionToString(direction)
-                << " (" << directionToChar(direction) << ")" << endl;
+                << " (" << static_cast<char>(direction) << ")" << endl;
         }
     }
 }

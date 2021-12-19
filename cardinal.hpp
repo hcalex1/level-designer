@@ -11,27 +11,7 @@
 #include "Exceptions/InvalidDirection.hpp"
 
 namespace cardinal {
-    enum Direction { NORTH = 0x01, EAST  = 0x02, SOUTH = 0x04, WEST  = 0x08 };
-
-    constexpr Direction charToDirection(char c) {
-        switch (c) {
-            case 'N': return NORTH;
-            case 'E': return EAST;
-            case 'S': return SOUTH;
-            case 'W': return WEST;
-            default : throw InvalidDirection("No such cardinal direction");
-        }
-    }
-
-    constexpr char directionToChar(Direction direction) {
-        switch (direction) {
-            case NORTH: return 'N';
-            case EAST : return 'E';
-            case SOUTH: return 'S';
-            case WEST : return 'W';
-            default   : throw InvalidDirection("No such cardinal direction");
-        }
-    }
+    enum Direction { NORTH = 'N', EAST  = 'E', SOUTH = 'S', WEST  = 'W' };
 
     constexpr const char* directionToString(Direction direction) {
         switch (direction) {
