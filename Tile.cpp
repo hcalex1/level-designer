@@ -19,11 +19,6 @@
 using namespace std;
 using namespace cardinal;
 
-static const map<Direction, uint8_t> directionToBit = { { NORTH, 0x01 },
-                                                        { EAST , 0x02 },
-                                                        { SOUTH, 0x04 },
-                                                        { WEST , 0x08 } };
-
 Tile::Tile(const Room & room) : room_(room), linkState_(0x00) {}
 
 Direction Tile::getDirection(shared_ptr<Tile> other) const {
@@ -63,3 +58,8 @@ void Tile::unlink(Direction direction) {
 void Tile::setAdjacency(shared_ptr<Tile> other, Direction direction) {
     adjacentTiles_[direction] = other;
 }
+
+const map<Direction, uint8_t> Tile::directionToBit = { { NORTH, 0x01 },
+                                                       { EAST , 0x02 },
+                                                       { SOUTH, 0x04 },
+                                                       { WEST , 0x08 } };
