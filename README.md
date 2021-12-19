@@ -18,8 +18,8 @@
 - *positions* are represented by two integers and are used as `std::pair<int, int>`.
 - NORTH is the direction represented by the vector ( 0, 1)
 - EAST  is the direction represented by the vector ( 1, 0)
-- SOUTH is the direction represented by the vector (-1, 0)
-- WEST  is the direction represented by the vector ( 0,-1)
+- SOUTH is the direction represented by the vector ( 0,-1)
+- WEST  is the direction represented by the vector (-1, 0)
 
 ## Structure
 Level creation and loading will be seperate from the game. All the optimisation and rule/assumption enforcement and validation should be completed during level creation and loading. This allows for faster navigation and room loading. For the mapping system, we can think of `Map` as a specialized 2D container, of `Navigator` as the iterator for this 2D container and `Tile` as a node in the container.
