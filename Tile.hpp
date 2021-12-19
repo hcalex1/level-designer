@@ -30,7 +30,12 @@ public:
     
 private:
     Room room_;
+
+    // Adjacent tiles must be refenced using weak_ptrs to avoid circular referencing
+    // (adjacent tiles will inevitable be referencing each other).Tile ownership must
+    // be shared with the Map class which manages the creation and destruction. 
     std::map<cardinal::Direction, std::weak_ptr<Tile>> adjacentTiles_;
+
     std::uint8_t linkState_; // This is a bitmap for the links to the other Tiles
 
     void setAdjacency(std::shared_ptr<Tile>, cardinal::Direction);

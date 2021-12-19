@@ -28,7 +28,7 @@ Level creation and loading will be seperate from the game. All the optimisation 
 The `Tile` contains all the information necessary to navigate the *map*. This information is quickly accessible and does not require much computation.
 
 This information includes:
-- pointers to *adjacent tiles*
+- pointers to *adjacent tiles* (`weak_ptr` to avoid circular referencing)
 - wether or not the *tile* are *linked*
 
 Link are tracked in a bitmap.
