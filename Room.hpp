@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Lookable.hpp"
+#include "Object.hpp"
 
 #include <string>
 #include <iostream>
@@ -22,9 +23,12 @@ public:
 
     const std::string& getName() const;
     const std::string& getDescription() const;
+    void addObject(const Object&);
+    void removeObject(const std::string&);
     virtual void show(std::ostream&) const override;
 
 private:
     std::string name_;
     std::string description_;
+    std::map<std::string, Object> objects_;
 };

@@ -22,7 +22,19 @@ const string& Room::getDescription() const {
     return description_;
 }
 
+void Room::addObject(const Object& newObject) {
+    objects_[newObject.getName()] = newObject;
+}
+
+void Room::removeObject(const std::string& objectName) {
+    objects_.erase(objectName);
+}
+
 void Room::show(ostream& os) const {
-    os << "-- " << name_ << " --" << endl;
-    os << description_ << endl;
+    os << "-- " << name_ << " --" << endl
+       << description_ << endl
+       << "You notice:" << endl;
+    for (auto [name, object] : objects_) {
+        os << "A " << name << endl;
+    }
 }
