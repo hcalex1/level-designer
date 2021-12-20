@@ -15,31 +15,29 @@
 
 using namespace std;
 
-Object::Object(const std::string& name, const std::string& description) : name_(name),
-    description_(description), interactText_("Nothing happens"), interactFunction_(noInteract_) {}
+Object::Object(const string& name, const string& description, const string interactText) : name_(name),
+    description_(description), interactText_(interactText), interactFunction_(noInteract_) {}
 
 
-const std::string& Object::getName() const {
+const string& Object::getName() const {
     return name_;
 }
 
-const std::string& Object::getDescription() const {
+const string& Object::getDescription() const {
     return description_;
 }
 
-void Object::setInteract(const std::function<void(Navigator&)> interactFunction, 
-                std::string interactText) {
-    interactText_ = interactText;
+void Object::setInteract(const function<void(Navigator&)> interactFunction) { 
     interactFunction_ = interactFunction;
 }
 
-void Object::interact(Navigator& navigator, std::ostream& os) {
+void Object::interact(Navigator& navigator, ostream& os) {
     interactFunction_(navigator);
     os << interactText_ << endl;
 }
 
-void Object::show(std::ostream& os) const {
+void Object::show(ostream& os) const {
     os << description_ << endl;
 }
 
-std::function<void(Navigator&)> Object::noInteract_ = [] (Navigator&) {};
+function<void(Navigator&)> Object::noInteract_ = [] (Navigator&) {};

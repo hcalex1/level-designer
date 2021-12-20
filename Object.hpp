@@ -18,13 +18,13 @@ class Navigator;
 class Object : public Lookable {
 public:
     Object() = default;
-    Object(const std::string&, const std::string&);
+    Object(const std::string& name, const std::string& description, 
+        const std::string interacText="Nothing happens");
     
     const std::string& getName() const;
     const std::string& getDescription() const ;
 
-    void setInteract(const std::function<void(Navigator&)> interactFunction, 
-                    std::string interactText = "");
+    void setInteract(const std::function<void(Navigator&)> interactFunction); 
 
     void interact(Navigator&, std::ostream&);
     virtual void show(std::ostream&) const override;
