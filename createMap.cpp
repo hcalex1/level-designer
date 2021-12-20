@@ -15,21 +15,29 @@
 #include <string>
 
 Map createMap() {
+    
+    std::pair<int, int> frontYard  = { 0, 0 };
+    std::pair<int, int> garage     = { 1, 0 };
+    std::pair<int, int> foyer      = { 0, 1 };
+    std::pair<int, int> livingRoom = { 1, 1 };
+    std::pair<int, int> guestHouse = { -1, 0 };
+    std::pair<int, int> diningRoom = { -1, 1 };
+
     Map map;
+  
+    map.insert(frontYard,  "Front Yard",  "There is a circular driveway and a fountain.");
+    map.insert(garage,     "Garage",      "There are four parking spaces.");
+    map.insert(foyer,      "Foyer",       "There is a round table and a chandelier.");
+    map.insert(livingRoom, "Living Room", "There are two large couches and a coffee table.");
+    map.insert(guestHouse, "Guest House", "There is a bed and a kitchen.");
+    map.insert(diningRoom, "Dining Room", "There is a long rectangular table with 8 chairs.");
 
-    map.insert({ 0, 0}, "Front Yard",  "There is a circular driveway and a fountain.");
-    map.insert({ 1, 0}, "Garage",      "There are four parking spaces.");
-    map.insert({ 0, 1}, "Foyer",       "There is a round table and a chandelier.");
-    map.insert({ 1, 1}, "Living Room", "There are two large couches and a coffee table.");
-    map.insert({-1, 0}, "Guest House", "There is a bed and a kitchen.");
-    map.insert({-1, 1}, "Dining Room", "There is a long rectangular table with 8 chairs.");
-
-    map.link({0, 0}, { 1, 0});
-    map.link({0, 0}, { 0, 1});
-    map.link({0, 0}, {-1, 0});
-    map.link({0, 1}, { 1, 1});
-    map.link({1, 0}, { 1, 1});
-    map.link({0, 1}, {-1, 1});
+    map.link(frontYard, garage);
+    map.link(frontYard, foyer);
+    map.link(frontYard, guestHouse);
+    map.link(foyer,     livingRoom);
+    map.link(garage,    livingRoom);
+    map.link(foyer,     diningRoom);
 
     // map.link("Front Yard" , "Garage");
     // map.link("Front Yard" , "Guest House");
