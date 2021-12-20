@@ -20,6 +20,7 @@ class Room : public Lookable {
 public:
     Room() = default;
     Room(const std::string &name, const std::string &description="");
+    Room(const Room&);
 
     const std::string& getName() const;
     const std::string& getDescription() const;
@@ -31,5 +32,5 @@ public:
 private:
     std::string name_;
     std::string description_;
-    std::map<std::string, Object> objects_;
+    std::map<std::string, std::unique_ptr<Object>> objects_;
 };

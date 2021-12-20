@@ -16,6 +16,13 @@ using namespace std;
 Room::Room(const string &name, const string &description) : 
     name_(name) , description_(description) {}
 
+Room::Room(const Room& other) : 
+    name_(other.name_) , description_(other.description_) {
+        for (auto&& [name, object] : objects_) {
+            objects_[name_] = make_unique<Object>(*object);
+        }
+    }
+
 const string& Room::getName() const {
     return name_;
 }
@@ -25,19 +32,19 @@ const string& Room::getDescription() const {
 }
 
 Object& Room::getObject(const std::string& lookupValue) {
-    for (auto [name, object] : objects_) {
+    for (auto&& [name, object] : objects_) {
         stringstream ss(name);
         string keyword;
         while (ss >> keyword) {
             if (lookupValue.find(keyword) != string::npos)
-                return object;
+                return *object;
         }
     }
     throw InvalidObject("Object not found");
 }
 
 void Room::addObject(const Object& newObject) {
-    objects_[newObject.getName()] = newObject;
+    objects_[newObject.getName()] = make_unique<Object>(newObject);
 }
 
 void Room::removeObject(const std::string& objectName) {
@@ -49,7 +56,7 @@ void Room::show(ostream& os) const {
        << description_ << endl;
     if (objects_.size() > 0) {
         os << "You notice:" << endl;
-        for (auto [name, object] : objects_) {
+        for (auto&& [name, object] : objects_) {
             os << "    A " << name << endl;
         }
     }
