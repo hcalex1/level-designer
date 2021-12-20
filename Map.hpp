@@ -22,15 +22,12 @@ class Map
 public:
     unsigned size() const; 
     Navigator getNavigator(std::pair<int, int> position);
-    // std::pair<int, int> getPosition(const std::string& roomName) const;
-    // Room& getRoom(std::pair<int, int> position);
-    // Room& getRoom(const std::string& roomName);
+    Room& operator[](std::pair<int, int> position);
 
     void insert(std::pair<int, int> position, const Room& room);
     void insert(std::pair<int, int> position, const std::string& roomName, const std::string& roomDescription);
     void erase(std::pair<int, int>);
     void link(std::pair<int, int>, std::pair<int, int>);
-    // void link(const std::string& roomName1, const std::string& roomName2);
 
     static double computeDistance(std::pair<int, int> position1, std::pair<int, int> position2);
 

@@ -27,21 +27,9 @@ Navigator Map::getNavigator(pair<int, int> position) {
     return Navigator(map_[position]);
 }
 
-// pair<int, int> Map::getPosition(const string& roomName) const {
-//     for (auto [position, tile] : map_) {
-//         if (tile->room_.getName() == roomName)
-//             return position;
-//     }
-//     throw domain_error("No such room");
-// }
-
-// Room& Map::getRoom(pair<int, int> position) {
-//     return map_[position]->room_;
-// }
-
-// Room& Map::getRoom(const string& roomName) {
-//     return getRoom(getPosition(roomName));
-// }
+Room& Map::operator[](pair<int, int> position) {
+    return map_[position]->room_;
+}
 
 void Map::erase(pair<int, int> position) {
     map_.erase(position);
@@ -84,10 +72,6 @@ void Map::link(pair<int, int> position1, pair<int, int> position2) {
     Direction direction12 = tile1->getDirection(tile2);
     tile1->link(direction12);
 }
-
-// void Map::link(const string& roomName1, const string& roomName2) {
-//     link(getPosition(roomName1), getPosition(roomName2));
-// }
 
 double Map::computeDistance(pair<int, int> position1, pair<int, int> position2) {
     int deltaX = position2.first  - position1.first;
