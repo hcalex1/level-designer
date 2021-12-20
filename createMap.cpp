@@ -10,18 +10,24 @@
 #include "createMap.hpp"
 #include "Map.hpp"
 #include "Room.hpp"
+#include "Object.hpp"
+#include "Navigator.hpp"
+#include "cardinal.hpp"
 
 #include <memory>
 #include <string>
 
+using namespace std;
+
 Map createMap() {
     
-    std::pair<int, int> frontYard  = { 0, 0 };
-    std::pair<int, int> garage     = { 1, 0 };
-    std::pair<int, int> foyer      = { 0, 1 };
-    std::pair<int, int> livingRoom = { 1, 1 };
-    std::pair<int, int> guestHouse = { -1, 0 };
-    std::pair<int, int> diningRoom = { -1, 1 };
+    pair<int, int> frontYard  = { 0, 0 };
+    pair<int, int> garage     = { 1, 0 };
+    pair<int, int> foyer      = { 0, 1 };
+    pair<int, int> livingRoom = { 1, 1 };
+    pair<int, int> guestHouse = { -1, 0 };
+    pair<int, int> diningRoom = { -1, 1 };
+    pair<int, int> secretRoom = { 2, 1 };
 
     Map map;
   
@@ -31,6 +37,7 @@ Map createMap() {
     map.insert(livingRoom, "Living Room", "There are two large couches and a coffee table.");
     map.insert(guestHouse, "Guest House", "There is a bed and a kitchen.");
     map.insert(diningRoom, "Dining Room", "There is a long rectangular table with 8 chairs.");
+    map.insert(secretRoom, "Secret Room", "It is a dark windowless room with a round table.");
 
     map.link(frontYard, garage);
     map.link(frontYard, foyer);
@@ -39,5 +46,27 @@ Map createMap() {
     map.link(garage,    livingRoom);
     map.link(foyer,     diningRoom);
 
+    Object bookShelf = createBookShelf();
+    map[livingRoom].addObject(bookShelf);
+
+    Object banana = createBanana();
+    map[diningRoom].addObject(banana);
+
     return map;
+}
+
+Object createBookShelf() {
+    Object object{"book shelf", "This a woodden book shelf filled with encyclopedias."};
+    object.setInteract( [] (Navigator& n, Object& o) { n.link(cardinal::EAST); },
+                       "You pull on a book and the book shelf slides to the side");
+    return object;
+}
+
+Object createBanana() {
+    Object object{"banana", "This is a large ripe tropical banana."};
+    object.setInteract( [] (Navigator& n, Object& o) 
+                       { (*n).addObject(Object{"banana peel", "A slippery banana peel."});
+                         (*n).removeObject("banana"); },
+                       "You peel the banana and eat it.");
+    return object;
 }
