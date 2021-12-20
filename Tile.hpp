@@ -40,7 +40,7 @@ private:
 
     void setAdjacency(std::shared_ptr<Tile>, cardinal::Direction);
 
-    static const map<Direction, uint8_t> directionToBit;
+    static const std::map<cardinal::Direction, uint8_t> directionToBit;
 
     friend Map;
     friend Navigator;
