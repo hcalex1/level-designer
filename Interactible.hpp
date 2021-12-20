@@ -17,5 +17,5 @@ class Interactible {
 public:
     virtual ~Interactible() = default;
 
-    virtual void interact(Navigator&, std::ostream&) const = 0;
+    virtual void interact(Navigator&, std::ostream&) = 0;
 };
