@@ -19,10 +19,14 @@ class Game {
 public:
     Game (const Navigator&);
 
+    Navigator& getNavigator();
+
     void executeCommand(const std::string& proword, const std::string& argument="");
     void start();
 
     static std::pair<std::string, std::string> parseCommand(const std::string& command);
+
+    void look(const std::string&);
 
 private:
     bool running_ = true;

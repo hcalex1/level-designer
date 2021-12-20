@@ -13,6 +13,7 @@
 #include "Exceptions/InvalidCommand.hpp"
 #include "Exceptions/InvalidDirection.hpp"
 #include "Exceptions/EmptyDirection.hpp"
+#include "Exceptions/InvalidObject.hpp"
 
 #include <memory>
 #include <stdexcept>
@@ -36,14 +37,6 @@ void Game::executeCommand(const string& proword, const string& argument) {
         auto command = commands_[proword];
         command(*this, argument);
     }
-    // else if (proword == "look" && argument == "") {
-    //     cout << "Taking another look... \n\n";
-    //     look();
-    // }
-    // else if (proword == "exit" && argument == "") {
-    //     cout << "Exiting...\n\nThanks for playing!\n";
-    //     running_ = false;
-    // }
     // else
     //     throw InvalidCommand("Unknown command");
 }
@@ -71,6 +64,7 @@ void Game::start() {
         catch (EmptyDirection& e)   { cout << "You can't go there."     << endl; }
         catch (InvalidCommand& e)   { cout << "I do not know that one." << endl; }
         catch (InvalidDirection& e) { cout << "I do not know that one." << endl; }
+        catch (InvalidObject& e)    { cout << "That is not an object."  << endl; }
     }
 }
 
@@ -86,10 +80,20 @@ pair<string, string> Game::parseCommand(const string& command) {
     }
 }
 
+// void Game::look(const std::string& argument) {
+//     if (argument == "")  {
+//         (*navigator_).show(cout);
+//         navigator_.show(cout);
+//     }
+//     else {
+//         (*navigator_).getObject(argument).show(cout);
+//     }
+// }
+
 map<string, std::function<void(Game&, const string&)>> Game::commands_ = {
     { "look",
       [] (Game& g, const string& arg) { 
-          Navigator n = g.navigator_;
+          Navigator &n = g.navigator_;
           if (arg == "")  {
               (*n).show(cout);
               n.show(cout);
@@ -101,8 +105,13 @@ map<string, std::function<void(Game&, const string&)>> Game::commands_ = {
     },
     { "use",
       [] (Game& g, const string& arg) {
-          Navigator n = g.navigator_;
-          (*n).getObject(arg).interact(n, cout);
+          if (arg == "") {
+              cout << "The use command requires object name or keyword as argument." << endl;
+          }
+          else {
+              Navigator &n = g.navigator_;
+              (*n).getObject(arg).interact(n, cout);
+          }
       } 
     },
     { "exit",

@@ -26,7 +26,6 @@ const string& Room::getDescription() const {
 
 Object& Room::getObject(const std::string& lookupValue) {
     for (auto [name, object] : objects_) {
-        return object;
         stringstream ss(name);
         string keyword;
         while (ss >> keyword) {
