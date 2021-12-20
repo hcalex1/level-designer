@@ -19,7 +19,6 @@ class Game {
 public:
     Game (const Navigator&);
 
-    void look(const Lookable& lookable = defaultLookable_) const;
     void executeCommand(const std::string& proword, const std::string& argument="");
     void start();
 
@@ -28,5 +27,6 @@ public:
 private:
     bool running_ = true;
     Navigator navigator_;
-    inline static const Lookable& defaultLookable_ = Room{};
+
+    static std::map<std::string, std::function<void(Game&, const std::string&)>> commands_;
 };

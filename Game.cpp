@@ -25,34 +25,27 @@ using namespace cardinal;
 
 Game::Game(const Navigator& navigator) : navigator_(navigator) {}
 
-void Game::look(const Lookable& lookable) const {
-    if (lookable == defaultLookable_) {
-        const Room &room  = *navigator_;
-        room.show(cout);
-        navigator_.show(cout);
-    }
-    else {
-        lookable.show(cout);
-    }
-}
-
 void Game::executeCommand(const string& proword, const string& argument) {
     if (proword.size() == 1) {
         Direction direction = static_cast<Direction>(proword[0]);
         navigator_.move(direction);
-        cout << "Going " << cardinal::directionToString(direction) << "...\n\n";
-        look();
+        cout << "Going " << directionToString(direction) << "...\n\n";
+        commands_["look"](*this, "");
     }
-    else if (proword == "look" && argument == "") {
-        cout << "Taking another look... \n\n";
-        look();
+    else {
+        auto command = commands_[proword];
+        command(*this, argument);
     }
-    else if (proword == "exit" && argument == "") {
-        cout << "Exiting...\n\nThanks for playing!\n";
-        running_ = false;
-    }
-    else
-        throw InvalidCommand("Unknown command");
+    // else if (proword == "look" && argument == "") {
+    //     cout << "Taking another look... \n\n";
+    //     look();
+    // }
+    // else if (proword == "exit" && argument == "") {
+    //     cout << "Exiting...\n\nThanks for playing!\n";
+    //     running_ = false;
+    // }
+    // else
+    //     throw InvalidCommand("Unknown command");
 }
 
 void Game::start() {
@@ -63,7 +56,7 @@ void Game::start() {
         ║╚═╝╚═╩═╩═╩╬╗║╚╝╚╩═╩═╩╩╩╩══╝║\n\
         ╚══════════╩═╩══════════════╝\n\
             by Alex Hoang-Cao & Emile Watier\n\n";
-    look();
+    commands_["look"](*this, "");
 
     while (running_) {
         cout << "\n> ";
@@ -92,3 +85,30 @@ pair<string, string> Game::parseCommand(const string& command) {
         return { command, "" };
     }
 }
+
+map<string, std::function<void(Game&, const string&)>> Game::commands_ = {
+    { "look",
+      [] (Game& g, const string& arg) { 
+          Navigator n = g.navigator_;
+          if (arg == "")  {
+              (*n).show(cout);
+              n.show(cout);
+          }
+          else {
+              (*n).getObject(arg).show(cout);
+          }
+       }
+    },
+    { "use",
+      [] (Game& g, const string& arg) {
+          Navigator n = g.navigator_;
+          (*n).getObject(arg).interact(n, cout);
+      } 
+    },
+    { "exit",
+      [] ([[maybe_unused]] Game& g,[[maybe_unused]] const string& arg) {
+          cout << "Exiting...\n\nThanks for playing!\n";
+          g.running_ = false;
+      }
+    }
+};

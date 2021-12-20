@@ -23,6 +23,7 @@ public:
 
     const std::string& getName() const;
     const std::string& getDescription() const;
+    Object& getObject(const std::string&);
     void addObject(const Object&);
     void removeObject(const std::string&);
     virtual void show(std::ostream&) const override;

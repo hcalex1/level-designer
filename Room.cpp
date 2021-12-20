@@ -6,8 +6,10 @@
 * Created 13 December 2021
 */
 #include "Room.hpp"
+#include "Exceptions/InvalidObject.hpp"
 
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -22,6 +24,19 @@ const string& Room::getDescription() const {
     return description_;
 }
 
+Object& Room::getObject(const std::string& lookupValue) {
+    for (auto [name, object] : objects_) {
+        return object;
+        stringstream ss(name);
+        string keyword;
+        while (ss >> keyword) {
+            if (lookupValue.find(keyword) != string::npos)
+                return object;
+        }
+    }
+    throw InvalidObject("Object not found");
+}
+
 void Room::addObject(const Object& newObject) {
     objects_[newObject.getName()] = newObject;
 }
@@ -32,9 +47,11 @@ void Room::removeObject(const std::string& objectName) {
 
 void Room::show(ostream& os) const {
     os << "-- " << name_ << " --" << endl
-       << description_ << endl
-       << "You notice:" << endl;
-    for (auto [name, object] : objects_) {
-        os << "    A " << name << endl;
+       << description_ << endl;
+    if (objects_.size() > 0) {
+        os << "You notice:" << endl;
+        for (auto [name, object] : objects_) {
+            os << "    A " << name << endl;
+        }
     }
 }
