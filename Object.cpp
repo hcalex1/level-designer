@@ -8,7 +8,6 @@
 
 #include "Object.hpp"
 #include "Lookable.hpp"
-#include "Interactible.hpp"
 
 #include <iostream>
 #include <string>

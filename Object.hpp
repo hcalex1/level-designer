@@ -9,13 +9,13 @@
 #pragma once
 
 #include "Lookable.hpp"
-#include "Interactible.hpp"
 
 #include <iostream>
 #include <string>
 #include <functional>
 
-class Object : public Lookable, public Interactible {
+class Navigator;
+class Object : public Lookable {
 public:
     Object() = default;
     Object(const std::string&, const std::string&);
@@ -26,7 +26,7 @@ public:
     void setInteract(const std::function<void(Navigator&)> interactFunction, 
                     std::string interactText = "");
 
-    virtual void interact(Navigator&, std::ostream&) override;
+    void interact(Navigator&, std::ostream&);
     virtual void show(std::ostream&) const override;
 
 private:
