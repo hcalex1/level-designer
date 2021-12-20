@@ -34,11 +34,14 @@ void Game::executeCommand(const string& proword, const string& argument) {
         commands_["look"](*this, "");
     }
     else {
-        auto command = commands_[proword];
-        command(*this, argument);
+        try {
+            auto command = commands_[proword];
+            command(*this, argument);
+        }
+        catch (bad_function_call& e) {
+            throw InvalidCommand("Unknown command");
+        }
     }
-    // else
-    //     throw InvalidCommand("Unknown command");
 }
 
 void Game::start() {
@@ -71,24 +74,14 @@ void Game::start() {
 pair<string, string> Game::parseCommand(const string& command) {
     size_t split = command.find(" ");
     if (split != string::npos) {
-        string proword  = command.substr(0, split - 1);
-        string argument = command.substr(split);
+        string proword  = command.substr(0, split);
+        string argument = command.substr(split + 1);
         return { proword, argument };
     }
     else {
         return { command, "" };
     }
 }
-
-// void Game::look(const std::string& argument) {
-//     if (argument == "")  {
-//         (*navigator_).show(cout);
-//         navigator_.show(cout);
-//     }
-//     else {
-//         (*navigator_).getObject(argument).show(cout);
-//     }
-// }
 
 map<string, std::function<void(Game&, const string&)>> Game::commands_ = {
     { "look",
