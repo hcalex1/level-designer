@@ -16,7 +16,7 @@
 
 class Navigator : public Lookable {
 public:
-    Navigator(std::shared_ptr<Tile> tile);
+    Navigator(Tile* tile);
 
     void link(cardinal::Direction direction);
 
@@ -31,5 +31,5 @@ public:
     virtual void show(std::ostream&) const override;
 
 private:
-    std::shared_ptr<Tile> tile_;
+    Tile* tile_;
 };

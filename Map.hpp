@@ -16,6 +16,7 @@
 #include <utility>
 #include <memory>
 #include <string>
+#include <vector>
 
 class Map
 {
@@ -32,5 +33,7 @@ public:
     static double computeDistance(std::pair<int, int> position1, std::pair<int, int> position2);
 
 private:
-    std::map<std::pair<int, int>, std::shared_ptr<Tile>> map_;
+    std::map<std::pair<int, int>, std::unique_ptr<Tile>> map_;
+
+    static std::vector<std::pair<int, int>> getAdjacentPositions(std::pair<int, int>);
 };

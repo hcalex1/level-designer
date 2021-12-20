@@ -13,7 +13,6 @@
 #include "Exceptions/EmptyDirection.hpp"
 
 #include <string>
-#include <memory>
 #include <iostream>
 
 using namespace std;
@@ -21,9 +20,9 @@ using namespace cardinal;
 
 Tile::Tile(const Room & room) : room_(room), linkState_(0x00) {}
 
-Direction Tile::getDirection(shared_ptr<Tile> other) const {
+Direction Tile::getDirection(Tile* other) const {
     for (auto [direction, tile] : adjacentTiles_) {
-        if (tile.lock() == other)
+        if (tile == other)
             return direction; 
     }
     throw InvalidCoordinates("Tiles are not adjacent");
@@ -31,10 +30,7 @@ Direction Tile::getDirection(shared_ptr<Tile> other) const {
 
 bool Tile::isLinkedTo(Direction direction) const{
     try {
-        if (adjacentTiles_.at(direction).expired())
-            return false;
-        else
-            return linkState_ & directionToBit.at(direction);
+        return linkState_ & directionToBit.at(direction);
     }
     catch (out_of_range& e) {
         return false;
@@ -42,20 +38,20 @@ bool Tile::isLinkedTo(Direction direction) const{
 }
 
 void Tile::link(Direction direction) {
-    auto other = adjacentTiles_[direction].lock();
+    auto other = adjacentTiles_[direction];
     Direction rDirection = reverseDirection(direction);
     linkState_        = linkState_        | directionToBit.at(direction);
     other->linkState_ = other->linkState_ | directionToBit.at(rDirection);
 }
 
 void Tile::unlink(Direction direction) {
-    auto other = adjacentTiles_[direction].lock();
+    auto other = adjacentTiles_[direction];
     Direction rDirection = reverseDirection(direction);
     linkState_        = linkState_        ^ directionToBit.at(direction);
     other->linkState_ = other->linkState_ ^ directionToBit.at(rDirection);
 }
 
-void Tile::setAdjacency(shared_ptr<Tile> other, Direction direction) {
+void Tile::setAdjacency(Tile* other, Direction direction) {
     adjacentTiles_[direction] = other;
 }
 

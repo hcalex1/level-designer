@@ -13,7 +13,6 @@
 #include "Exceptions/InvalidCoordinates.hpp"
 
 #include <memory>
-#include "cppitertools/range.hpp"
 #include <cmath>
 
 using namespace std;
@@ -24,7 +23,7 @@ unsigned Map::size() const {
 }
 
 Navigator Map::getNavigator(pair<int, int> position) {
-    return Navigator(map_[position]);
+    return Navigator(map_[position].get());
 }
 
 Room& Map::operator[](pair<int, int> position) {
@@ -32,6 +31,11 @@ Room& Map::operator[](pair<int, int> position) {
 }
 
 void Map::erase(pair<int, int> position) {
+    for (pair<int, int> adjPos : getAdjacentPositions(position)) {
+        Direction direction = computeDirection(adjPos, position);
+        map_[adjPos]->unlink(direction);
+        map_[adjPos]->setAdjacency(nullptr, direction);
+    }
     map_.erase(position);
 }
 
@@ -39,23 +43,18 @@ void Map::insert( pair<int, int> position, const Room& room) {
     if (map_[position] != nullptr)
         throw InvalidCoordinates("Position occupied");
 
-    Tile tile{room};
-    pair<int, int> adjacentPositions[4];
-    adjacentPositions[0] = {position.first    , position.second - 1};
-    adjacentPositions[1] = {position.first    , position.second + 1};
-    adjacentPositions[2] = {position.first - 1, position.second    };
-    adjacentPositions[3] = {position.first + 1, position.second    };
-    auto newTile = make_shared<Tile>(tile);
-    for (int i : iter::range(static_cast<int>(Direction::count))) {
-        auto adjTile = map_[adjacentPositions[i]];
+    map_[position] = make_unique<Tile>(Tile{room});
+
+    Tile* newTile = map_[position].get();
+    for (pair<int, int> adjPos : getAdjacentPositions(position)) {
+        auto adjTile = map_[adjPos].get();
         if (adjTile != nullptr) {
-            Direction newToAdj = computeDirection(position, adjacentPositions[i]);
-            Direction adjToNew = computeDirection(adjacentPositions[i], position);
+            Direction newToAdj = computeDirection(position, adjPos);
+            Direction adjToNew = computeDirection(adjPos, position);
             newTile->setAdjacency(adjTile, newToAdj);
             adjTile->setAdjacency(newTile, adjToNew);
         }
     }
-    map_[position] = newTile;
 }
 
 void Map::insert(pair<int, int> position, const string& roomName, const string& roomDescription) {
@@ -67,8 +66,8 @@ void Map::link(pair<int, int> position1, pair<int, int> position2) {
         throw InvalidCoordinates("Positions must me adjacent to be linked");
     }
 
-    auto tile1 = map_[position1];
-    auto tile2 = map_[position2];
+    Tile* tile1 = map_[position1].get();
+    Tile* tile2 = map_[position2].get();
     Direction direction12 = tile1->getDirection(tile2);
     tile1->link(direction12);
 }
@@ -77,4 +76,13 @@ double Map::computeDistance(pair<int, int> position1, pair<int, int> position2) 
     int deltaX = position2.first  - position1.first;
     int deltaY = position2.second - position1.second;
     return hypot(deltaX, deltaY);
+}
+
+vector<std::pair<int, int>> Map::getAdjacentPositions(pair<int, int> position) {
+    vector<pair<int, int>>  adjacentPositions;
+    adjacentPositions.push_back({position.first    , position.second - 1});
+    adjacentPositions.push_back({position.first    , position.second + 1});
+    adjacentPositions.push_back({position.first - 1, position.second    });
+    adjacentPositions.push_back({position.first + 1, position.second    });
+    return adjacentPositions;
 }

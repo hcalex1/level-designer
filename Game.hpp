@@ -12,7 +12,6 @@
 #include "Room.hpp"
 #include "Navigator.hpp"
 
-#include <memory>
 #include <string>
 
 class Game {

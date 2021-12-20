@@ -18,7 +18,7 @@
 
 using namespace std;
 
-Navigator::Navigator(std::shared_ptr<Tile> tile) : tile_(tile) {}
+Navigator::Navigator(Tile* tile) : tile_(tile) {}
 
 void Navigator::link(cardinal::Direction direction) {
     tile_->link(direction);
@@ -40,14 +40,12 @@ void Navigator::move(cardinal::Direction direction) {
     if (!tile_->isLinkedTo(direction))
         throw EmptyDirection("No tile in this direction");
 
-    tile_ = tile_->adjacentTiles_[direction].lock();
+    tile_ = tile_->adjacentTiles_[direction];
 }
 
 void Navigator::show(std::ostream& os) const {
     for (auto [direction, tile] : tile_->adjacentTiles_) {
-        if (!tile.expired() && tile_->isLinkedTo(direction)) {
-            os << tile.lock()->room_.getName() << " is to the " << directionToString(direction)
-                << " (" << static_cast<char>(direction) << ")" << endl;
-        }
+        os << tile->room_.getName() << " is to the " << directionToString(direction)
+            << " (" << static_cast<char>(direction) << ")" << endl;
     }
 }
