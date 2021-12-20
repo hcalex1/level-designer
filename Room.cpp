@@ -35,6 +35,6 @@ void Room::show(ostream& os) const {
        << description_ << endl
        << "You notice:" << endl;
     for (auto [name, object] : objects_) {
-        os << "A " << name << endl;
+        os << "    A " << name << endl;
     }
 }

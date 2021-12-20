@@ -16,8 +16,8 @@
 
 using namespace std;
 
-Object::Object(const std::string& name, const std::string& description) :
-    name_(name), description_(description), interactText_("Nothing happens") {}
+Object::Object(const std::string& name, const std::string& description) : name_(name),
+    description_(description), interactText_("Nothing happens"), interactFunction_(noInteract_) {}
 
 
 const std::string& Object::getName() const {
@@ -28,18 +28,19 @@ const std::string& Object::getDescription() const {
     return description_;
 }
 
-void Object::setInteract(const std::function<void(Navigator&, Object&)> interactFunction, 
+void Object::setInteract(const std::function<void(Navigator&)> interactFunction, 
                 std::string interactText) {
-    interactText_ = interactText_;
+    interactText_ = interactText;
     interactFunction_ = interactFunction;
 }
 
 void Object::interact(Navigator& navigator, std::ostream& os) {
-    if (&interactFunction_ != nullptr)
-        interactFunction_(navigator, *this);
+    interactFunction_(navigator);
     os << interactText_ << endl;
 }
 
 void Object::show(std::ostream& os) const {
     os << description_ << endl;
 }
+
+std::function<void(Navigator&)> Object::noInteract_ = [] (Navigator&) {};

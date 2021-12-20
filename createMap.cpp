@@ -57,14 +57,14 @@ Map createMap() {
 
 Object createBookShelf() {
     Object object{"book shelf", "This a woodden book shelf filled with encyclopedias."};
-    object.setInteract( [] (Navigator& n, Object& o) { n.link(cardinal::EAST); },
+    object.setInteract( [] (Navigator& n) { n.link(cardinal::EAST); },
                        "You pull on a book and the book shelf slides to the side");
     return object;
 }
 
 Object createBanana() {
     Object object{"banana", "This is a large ripe tropical banana."};
-    object.setInteract( [] (Navigator& n, Object& o) 
+    object.setInteract( [] (Navigator& n)
                        { (*n).addObject(Object{"banana peel", "A slippery banana peel."});
                          (*n).removeObject("banana"); },
                        "You peel the banana and eat it.");

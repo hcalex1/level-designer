@@ -17,12 +17,13 @@
 
 class Object : public Lookable, public Interactible {
 public:
+    Object() = default;
     Object(const std::string&, const std::string&);
     
     const std::string& getName() const;
     const std::string& getDescription() const ;
 
-    void setInteract(const std::function<void(Navigator&, Object&)> interactFunction, 
+    void setInteract(const std::function<void(Navigator&)> interactFunction, 
                     std::string interactText = "");
 
     virtual void interact(Navigator&, std::ostream&) override;
@@ -32,5 +33,7 @@ private:
     std::string name_;
     std::string description_;
     std::string interactText_;
-    std::function<void(Navigator&, Object&)> interactFunction_;
+    std::function<void(Navigator&)> interactFunction_;
+
+    static std::function<void(Navigator&)> noInteract_;
 };

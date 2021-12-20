@@ -9,10 +9,9 @@
 
 #pragma once
 
-#include "Navigator.hpp"
-
 #include <iostream>
 
+class Navigator;
 class Interactible {
 public:
     virtual ~Interactible() = default;
