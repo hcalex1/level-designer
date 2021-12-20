@@ -1,6 +1,6 @@
 /**
-* This file consists of the Object abstract class. 
-* \file   Interactible.hpp
+* This file consists of declarations for the Object class. 
+* \file   Object.hpp
 * \authors Alex Hoang-Cao and Emile Watier
 * \date   13 December 2021
 * Created 13 December 2021
@@ -23,13 +23,14 @@ public:
     const std::string& getDescription() const ;
 
     void setInteract(const std::function<void(Navigator&, Object&)> interactFunction, 
-                    std::string interactText = "Nothing to do");
+                    std::string interactText = "");
 
-    virtual void interact(Navigator&, std::ostream&) const override;
+    virtual void interact(Navigator&, std::ostream&) override;
     virtual void show(std::ostream&) const override;
 
 private:
     std::string name_;
-    std::string description;
+    std::string description_;
     std::string interactText_;
+    std::function<void(Navigator&, Object&)> interactFunction_;
 };
