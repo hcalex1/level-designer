@@ -44,10 +44,11 @@ void Navigator::move(cardinal::Direction direction) {
 }
 
 void Navigator::show(std::ostream& os) const {
+    os << endl;
     for (auto [direction, tile] : tile_->adjacentTiles_) {
         if (tile_->isLinkedTo(direction)) {
             os << tile->room_.getName() << " is to the " << directionToString(direction)
-                << " (" << static_cast<char>(direction) << ")" << endl;
+                << " (" << static_cast<char>(direction) << ")\n";
         }
     }
 }

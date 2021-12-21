@@ -52,7 +52,7 @@ void Room::removeObject(const std::string& objectName) {
 }
 
 void Room::show(ostream& os) const {
-    os << "-- " << name_ << " --" << endl
+    os << "\n-- " << name_ << " --" << endl
        << description_ << endl;
     if (objects_.size() > 0) {
         os << "You notice:" << endl;

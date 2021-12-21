@@ -59,8 +59,8 @@ Object createBookShelf() {
     Object object{"book shelf", "This a woodden book shelf filled with encyclopedias."};
     object.setInteract( [] (Game& g, unsigned c, ostream& os) { 
         if (c == 0) {
+            os << "You pull on a book.\nThe shelf slides to the side...\n";
             g.getNavigator().link(cardinal::EAST); 
-            os << "You pull on a book and the book shelf slides to the side.\n";
         }
         else {
             os << "You read some books.\n";
@@ -73,8 +73,8 @@ Object createBanana() {
     Object object{"banana", "This is a large ripe tropical banana."};
     object.setInteract( [] (Game& g, [[maybe_unused]] unsigned c, ostream& os) { 
         Room &r = *g.getNavigator();
-        r.addObject(Object{"banana peel", "A slippery banana peel."});
         os << "You peel the banana and eat it.\n"; 
+        r.addObject(Object{"banana peel", "A slippery banana peel."});
         r.removeObject("banana");
     });
     return object;

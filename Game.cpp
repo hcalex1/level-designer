@@ -34,7 +34,7 @@ void Game::executeCommand(const string& proword, const string& argument) {
     if (proword.size() == 1) {
         Direction direction = static_cast<Direction>(proword[0]);
         navigator_.move(direction);
-        cout << "Going " << directionToString(direction) << "...\n\n";
+        cout << "Going " << directionToString(direction) << "...\n";
         commands_["look"](*this, "");
     }
     else {
@@ -55,7 +55,7 @@ void Game::start() {
         ║║║╔╣╩╬╝║║║║║║║╔╗╣║║║║║║╠╗╚╣║\n\
         ║╚═╝╚═╩═╩═╩╬╗║╚╝╚╩═╩═╩╩╩╩══╝║\n\
         ╚══════════╩═╩══════════════╝\n\
-            by Alex Hoang-Cao & Emile Watier\n\n";
+        by Alex Hoang-Cao & Emile Watier\n\n";
     commands_["look"](*this, "");
 
     while (running_) {
@@ -108,6 +108,7 @@ map<string, std::function<void(Game&, const string&)>> Game::commands_ = {
           else {
               Navigator &n = g.navigator_;
               (*n).getObject(arg).interact(g, cout);
+              commands_["look"](g, "");
           }
       } 
     },
