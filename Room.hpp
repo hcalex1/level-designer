@@ -13,7 +13,7 @@
 
 #include <string>
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include <memory>
 
 class Room : public Lookable {
@@ -32,5 +32,5 @@ public:
 private:
     std::string name_;
     std::string description_;
-    std::map<std::string, std::unique_ptr<Object>> objects_;
+    std::unordered_map<std::string, std::unique_ptr<Object>> objects_;
 };
