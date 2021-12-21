@@ -1,4 +1,4 @@
-# INF1015 Projet - Jeu Deadly Rooms
+# INF1015 Projet - Deadly Rooms
 
 ## Definitions:
 - *character*: The player's character though which he interacts with the game world
@@ -54,4 +54,4 @@ This function can :
 - link/unlink `Rooms`
 - change `Tile`
 - exit the `Game`
-- another other methods publicly accessible from `Game`
+- use any other methods publicly accessible from `Game`
