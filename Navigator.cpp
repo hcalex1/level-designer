@@ -10,7 +10,6 @@
 #include "Navigator.hpp"
 #include "Tile.hpp"
 #include "Room.hpp"
-#include "Lookable.hpp"
 #include "cardinal.hpp"
 #include "Exceptions/EmptyDirection.hpp"
 

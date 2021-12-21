@@ -11,13 +11,11 @@
 
 #include "Tile.hpp"
 #include "Room.hpp"
-#include "Lookable.hpp"
 #include "cardinal.hpp"
 
-class Navigator : public Lookable {
+class Navigator {
 public:
     Navigator(Tile* tile);
-    virtual ~Navigator() override = default;
 
     void link(cardinal::Direction direction);
 
@@ -29,7 +27,7 @@ public:
 
     void move(cardinal::Direction direction);
 
-    virtual void show(std::ostream&) const override;
+    void show(std::ostream&) const;
 
 private:
     Tile* tile_;

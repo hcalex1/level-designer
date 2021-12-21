@@ -8,18 +8,15 @@
 
 #pragma once
 
-#include "Lookable.hpp"
-
 #include <iostream>
 #include <string>
 #include <functional>
 
 class Game;
-class Object : public Lookable {
+class Object {
 public:
     Object() = default;
     Object(const std::string&, const std::string&); 
-    virtual ~Object() override = default;
     
     const std::string& getName() const;
     const std::string& getDescription() const ;
@@ -27,7 +24,7 @@ public:
     void setInteract(const std::function<void(Game&, unsigned, std::ostream&)> interactFunction); 
 
     void interact(Game&, std::ostream&);
-    virtual void show(std::ostream&) const override;
+    void show(std::ostream&) const;
 
 private:
     std::string name_;

@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include "Lookable.hpp"
 #include "Object.hpp"
 
 #include <string>
@@ -16,19 +15,18 @@
 #include <unordered_map>
 #include <memory>
 
-class Room : public Lookable {
+class Room {
 public:
     Room() = default;
     Room(const std::string &name, const std::string &description="");
     Room(const Room&);
-    virtual ~Room() override = default;
 
     const std::string& getName() const;
     const std::string& getDescription() const;
     Object& getObject(const std::string&);
     void addObject(const Object&);
     void removeObject(const std::string&);
-    virtual void show(std::ostream&) const override;
+    void show(std::ostream&) const;
 
 private:
     std::string name_;

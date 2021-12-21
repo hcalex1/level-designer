@@ -1,4 +1,4 @@
-# INF1015 Projet - Jeu Deadly Rooms
+# INF1015 Projet - Deadly Rooms
 
 ## Definitions:
 - *character*: The player's character though which he interacts with the game world
@@ -42,8 +42,16 @@ The `Navigator` is used to move through the *tiles*. It holds the current *posit
 ### The Game class
 The `Game` interprets the player's commands, modifies the `Tile`s and `Navigator` accordingly and gives feedback to the player.
 
-### The Lookable class
-The `Lookable` class is an abstract class from which all classes with information viewable to the user will be derrived.
-
 ### The Room class
-The `Room` class is the object with which the player interacts. I contains information about the *room* viewable by the *character*. More functionality can be added to this class.
+The `Room` class repesents the space with which the *character* interacts. It is composed of information about the *room* viewable by the *character* and *object* with which the player can interact.
+
+### The Object class
+The `Object` class can be used by the *character* to modify any the gamestate. It is currently only used in `Room`, but can be added to other classes (e.g. in *character* inventory). 
+
+To allow the level designer more flexibility in the implementation of `Objects`, `Objects` can take a function with parameters `Game`, the use count and `ostream` that will be executed when the objected is used. 
+This function can :
+- add/remove `Objects`
+- link/unlink `Rooms`
+- change `Tile`
+- exit the `Game`
+- use any other methods publicly accessible from `Game`

@@ -7,7 +7,6 @@
 */
 
 #include "Object.hpp"
-#include "Lookable.hpp"
 
 #include <iostream>
 #include <string>

@@ -8,7 +8,6 @@
 */
 
 #include "Game.hpp"
-#include "Lookable.hpp"
 #include "cardinal.hpp"
 #include "Exceptions/InvalidCommand.hpp"
 #include "Exceptions/InvalidDirection.hpp"

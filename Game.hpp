@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include "Lookable.hpp"
 #include "Room.hpp"
 #include "Navigator.hpp"
 
