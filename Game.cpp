@@ -26,6 +26,10 @@ using namespace cardinal;
 
 Game::Game(const Navigator& navigator) : navigator_(navigator) {}
 
+Navigator& Game::getNavigator() {
+    return navigator_;
+}
+
 void Game::executeCommand(const string& proword, const string& argument) {
     if (proword.size() == 1) {
         Direction direction = static_cast<Direction>(proword[0]);
@@ -103,7 +107,7 @@ map<string, std::function<void(Game&, const string&)>> Game::commands_ = {
           }
           else {
               Navigator &n = g.navigator_;
-              (*n).getObject(arg).interact(n, cout);
+              (*n).getObject(arg).interact(g, cout);
           }
       } 
     },

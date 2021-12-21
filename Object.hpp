@@ -14,26 +14,26 @@
 #include <string>
 #include <functional>
 
-class Navigator;
+class Game;
 class Object : public Lookable {
 public:
     Object() = default;
-    Object(const std::string& name, const std::string& description, 
-        const std::string interacText="Nothing happens");
+    Object(const std::string&, const std::string&); 
+    virtual ~Object() override = default;
     
     const std::string& getName() const;
     const std::string& getDescription() const ;
 
-    void setInteract(const std::function<void(Navigator&)> interactFunction); 
+    void setInteract(const std::function<void(Game&, unsigned, std::ostream&)> interactFunction); 
 
-    void interact(Navigator&, std::ostream&);
+    void interact(Game&, std::ostream&);
     virtual void show(std::ostream&) const override;
 
 private:
     std::string name_;
     std::string description_;
-    std::string interactText_;
-    std::function<void(Navigator&)> interactFunction_;
+    unsigned useCount_;
+    std::function<void(Game&, unsigned, std::ostream&)> interactFunction_;
 
-    static std::function<void(Navigator&)> noInteract_;
+    static std::function<void(Game&, unsigned, std::ostream&)> noInteract_;
 };

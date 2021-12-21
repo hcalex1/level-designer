@@ -11,7 +11,7 @@
 #include "Map.hpp"
 #include "Room.hpp"
 #include "Object.hpp"
-#include "Navigator.hpp"
+#include "Game.hpp"
 #include "cardinal.hpp"
 
 #include <memory>
@@ -56,17 +56,26 @@ Map createMap() {
 }
 
 Object createBookShelf() {
-    Object object{"book shelf", "This a woodden book shelf filled with encyclopedias.",
-                       "You pull on a book and the book shelf slides to the side."};
-    object.setInteract( [] (Navigator& n) { n.link(cardinal::EAST); });
+    Object object{"book shelf", "This a woodden book shelf filled with encyclopedias."};
+    object.setInteract( [] (Game& g, unsigned c, ostream& os) { 
+        if (c == 0) {
+            g.getNavigator().link(cardinal::EAST); 
+            os << "You pull on a book and the book shelf slides to the side.\n";
+        }
+        else {
+            os << "You read some books.\n";
+        }
+    });
     return object;
 }
 
 Object createBanana() {
-    Object object{"banana", "This is a large ripe tropical banana.",
-                       "You peel the banana and eat it."};
-    object.setInteract( [] (Navigator& n)
-                       { (*n).addObject(Object{"banana peel", "A slippery banana peel."});
-                         (*n).removeObject("banana"); });
+    Object object{"banana", "This is a large ripe tropical banana."};
+    object.setInteract( [] (Game& g, [[maybe_unused]] unsigned c, ostream& os) { 
+        Room &r = *g.getNavigator();
+        r.addObject(Object{"banana peel", "A slippery banana peel."});
+        os << "You peel the banana and eat it.\n"; 
+        r.removeObject("banana");
+    });
     return object;
 }

@@ -15,8 +15,8 @@
 
 using namespace std;
 
-Object::Object(const string& name, const string& description, const string interactText) : name_(name),
-    description_(description), interactText_(interactText), interactFunction_(noInteract_) {}
+Object::Object(const string& name, const string& description) : name_(name),
+    description_(description), useCount_(0), interactFunction_(noInteract_) {}
 
 
 const string& Object::getName() const {
@@ -27,17 +27,18 @@ const string& Object::getDescription() const {
     return description_;
 }
 
-void Object::setInteract(const function<void(Navigator&)> interactFunction) { 
+void Object::setInteract(const function<void(Game&, unsigned, ostream&)> interactFunction) { 
     interactFunction_ = interactFunction;
 }
 
-void Object::interact(Navigator& navigator, ostream& os) {
-    interactFunction_(navigator);
-    os << interactText_ << endl;
+void Object::interact(Game& game, ostream& os) {
+    interactFunction_(game, useCount_, os);
+    useCount_++;
 }
 
 void Object::show(ostream& os) const {
     os << description_ << endl;
 }
 
-function<void(Navigator&)> Object::noInteract_ = [] (Navigator&) {};
+function<void(Game&, unsigned, ostream&)> Object::noInteract_ = 
+    [] (Game&, unsigned, ostream&) {};

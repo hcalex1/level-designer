@@ -17,6 +17,7 @@
 class Navigator : public Lookable {
 public:
     Navigator(Tile* tile);
+    virtual ~Navigator() override = default;
 
     void link(cardinal::Direction direction);
 

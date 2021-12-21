@@ -21,6 +21,7 @@ public:
     Room() = default;
     Room(const std::string &name, const std::string &description="");
     Room(const Room&);
+    virtual ~Room() override = default;
 
     const std::string& getName() const;
     const std::string& getDescription() const;
