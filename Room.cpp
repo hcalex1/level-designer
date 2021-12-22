@@ -15,22 +15,15 @@
 using namespace std;
 
 Room::Room(const string &name, const string &description) : 
-    name_(name) , description_(description) {}
+    Component(name, description) {}
 
 Room::Room(const Room& other) : 
-    name_(other.name_) , description_(other.description_) {
+    Component(other.getName(), other.getDescription()) {
         for (auto&& [name, interactive] : interactives_) {
             interactives_[name_] = make_unique<Interactive>(*interactive);
         }
     }
 
-const string& Room::getName() const {
-    return name_;
-}
-
-const string& Room::getDescription() const {
-    return description_;
-}
 
 Interactive& Room::getInteractive(const std::string& lookupValue) {
     for (auto&& [name, Interactive] : interactives_) {
