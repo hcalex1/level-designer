@@ -47,25 +47,25 @@ Map createMap() {
     map.link(garage,    livingRoom);
     map.link(foyer,     diningRoom);
 
-    LinkerItem bookShelf{
+    auto bookShelf = make_unique<LinkerItem>(LinkerItem{
         "book shelf",
         "This a woodden book shelf filled with encyclopedias.",
         cardinal::EAST
-    };
-    map[livingRoom].addInteractive(bookShelf);
+    });
+    map[livingRoom].addInteractive(move(bookShelf));
 
-    Interactive bananaPeel{
+    auto bananaPeel = make_unique<Interactive>(Interactive{
         "banana peel",
         "A slippery banana peel."
-    };
-    DropperItem banana{
+    });
+    auto banana = make_unique<DropperItem>(DropperItem{
         "banana",
         "This is a large ripe tropical banana.",
         "You drop the banana peela",
         "You eat the banana.",
-        bananaPeel
-    };
-    map[diningRoom].addInteractive(banana);
+        move(bananaPeel)
+    });
+    map[diningRoom].addInteractive(move(banana));
 
     return map;
 }

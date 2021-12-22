@@ -19,7 +19,7 @@ class DropperItem : public Interactive {
 public:
     DropperItem(const std::string &name, const std::string &description, 
         const std::string &dropText, const std::string &useText, 
-        const Interactive &dropedItem); 
+        std::unique_ptr<Interactive> dropedItem); 
     DropperItem(const DropperItem&);
     virtual ~DropperItem() override = default;
     

@@ -44,8 +44,8 @@ Interactive& Room::getInteractive(const std::string& lookupValue) {
     throw InvalidInteractive("Interactive not found");
 }
 
-void Room::addInteractive(const Interactive& newInteractive) {
-    interactives_[newInteractive.getName()] = make_unique<Interactive>(newInteractive);
+void Room::addInteractive(unique_ptr<Interactive> newInteractive) {
+    interactives_[newInteractive->getName()] = move(newInteractive);
 }
 
 void Room::removeInteractive(const std::string& InteractiveName) {

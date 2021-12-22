@@ -24,7 +24,7 @@ public:
     const std::string& getName() const;
     const std::string& getDescription() const;
     Interactive& getInteractive(const std::string&);
-    void addInteractive(const Interactive&);
+    void addInteractive(std::unique_ptr<Interactive>);
     void removeInteractive(const std::string&);
     void show(std::ostream&) const;
 
