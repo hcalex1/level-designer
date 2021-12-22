@@ -21,7 +21,7 @@ using namespace cardinal;
 
 DropperItem::DropperItem(const string& name, const string& description, const string& dropText,
     const string& dropedText, const string& useText, unique_ptr<Interactive> dropedItem)
-    : Interactive{ name, description }, dropText_(dropText), dropedText_(dropedText), useText_(useText) {
+    : Interactive{name, description, useText}, dropText_(dropText), dropedText_(dropedText) {
     dropedItem_ = move(dropedItem);
 }
 

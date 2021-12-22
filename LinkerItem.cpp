@@ -30,6 +30,6 @@ void LinkerItem::interact(Game &game, ostream &os) {
         used_ = true;
     }
     else {
-        os << "Nothing happens...\n";
+        os << useText_ << endl;
     }
 }

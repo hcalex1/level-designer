@@ -27,6 +27,5 @@ public:
 private:
     std::string dropText_;
     std::string dropedText_;
-    std::string useText_;
     std::unique_ptr<Interactive> dropedItem_;
 };

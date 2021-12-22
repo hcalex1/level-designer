@@ -16,12 +16,14 @@
 class Game;
 class Interactive : public Component {
 public:
-    Interactive(const std::string &name, const std::string &description) : 
-        used_(false), Component(name, description) {}
+    Interactive(const std::string &name, const std::string &description, 
+        const std::string &useText = "Nothing happens.") :
+        used_(false), useText_(useText), Component(name, description) {}
     
-    virtual void interact(Game&, std::ostream &os)     { os << "Nothing happens."; }
+    virtual void interact(Game&, std::ostream &os)     { os << useText_ << std::endl; }
     virtual void show(std::ostream &os) const override { os << description_; }
 
 protected:
+    std::string useText_;
     bool used_;
 };
