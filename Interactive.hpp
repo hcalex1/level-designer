@@ -21,7 +21,7 @@ public:
         Lookable(name, description), useText_(useText), used_(false) {}
     
     virtual void interact(Game&, std::ostream &os)     { os << useText_ << std::endl; }
-    virtual void show(std::ostream &os) const override { os << description_; }
+    virtual void show(std::ostream& os) const override { os << description_ << std::endl; }
 
 protected:
     std::string useText_;
