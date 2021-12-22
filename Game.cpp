@@ -86,7 +86,7 @@ pair<string, string> Game::parseCommand(const string& command) {
     }
 }
 
-map<string, std::function<void(Game&, const string&)>> Game::commands_ = {
+unordered_map<string, std::function<void(Game&, const string&)>> Game::commands_ = {
     { "look",
       [] (Game& g, const string& arg) { 
           Navigator &n = g.navigator_;
