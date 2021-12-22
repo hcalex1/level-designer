@@ -31,5 +31,5 @@ private:
     bool running_ = true;
     Navigator navigator_;
 
-    static std::map<std::string, std::function<void(Game&, const std::string&)>> commands_;
+    static std::unordered_map<std::string, std::function<void(Game&, const std::string&)>> commands_;
 };
