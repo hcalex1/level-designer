@@ -22,14 +22,14 @@ LinkerItem::LinkerItem(const string &name, const string &description, Direction 
     : Interactive{name, description}, linkDirection_(linkDirection) {} 
     
 void LinkerItem::interact(Game &game, ostream &os) {
-    if (Interactive::useCount_ == 0) {
+    if (!used_) {
         Navigator navigator = game.getNavigator();
         game.getNavigator().link(linkDirection_); 
         os << (*navigator).getName() << " is now connected to " 
             << navigator.getRoom(linkDirection_).getName() << endl;
+        used_ = true;
     }
     else {
         os << "Nothing happens...\n";
     }
-    Interactive::useCount_++;
 }

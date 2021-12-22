@@ -30,12 +30,12 @@ DropperItem::DropperItem(const DropperItem& other)
     make_unique<Interactive>(*other.dropedItem_)) {}
     
 void DropperItem::interact(Game &game, ostream &os) {
-    if (Interactive::useCount_ == 0) {
+    if (!used_) {
         (*game.getNavigator()).addInteractive(move(dropedItem_));
         os << useText_ << " " << dropText_ << endl;
+        used_ = true;
     }
     else {
         os << useText_ << endl;
     }
-    Interactive::useCount_++;
 }
