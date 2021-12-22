@@ -49,4 +49,4 @@ The `Game` interprets the player's commands, modifies the `Tile`s and `Navigator
 The `Room` class repesents the space with which the *character* interacts. It is composed of information about the *room* viewable by the *character* and *Interactive* with which the player can interact.
 
 ### The Interactive class
-The `Interactive` class can be used by the *character* to modify any the game state. It is currently only used in `Room`, but can be added to other classes (e.g. in *character* inventory). 
+The `Interactive` class can be used by the *character* to modify the game state. It is currently only used in `Room`, but can be added to other classes (e.g. in *character* inventory). The level designer can create classes derrived from `Interactive` and override the `interact` method. The `interact` method has access public methods of `Game`. This allows `Interactive` derrived classes to *link tiles*, *unlink tiles*, teleport, add/remove `Interactives` from `Rooms`, end the game, etc. `LinkerItem` and `DropperItem` are examples of implementations. 
