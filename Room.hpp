@@ -26,7 +26,7 @@ public:
     Interactive& getInteractive(const std::string&);
     void addInteractive(std::unique_ptr<Interactive>);
     void removeInteractive(const std::string&);
-    void show(std::ostream&) const;
+    void show(std::ostream&) const override;
 
 private:
     std::unordered_map<std::string, std::unique_ptr<Interactive>> interactives_;

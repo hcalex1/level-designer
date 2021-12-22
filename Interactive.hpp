@@ -20,7 +20,7 @@ public:
         useCount_(0), Component(name, description) {}
     
     virtual void interact(Game&, std::ostream &os) { os << "Nothing happens."; }
-    virtual void show(std::ostream &os) const      { os << description_; }
+    virtual void show(std::ostream &os) const override { os << description_; }
 
 protected:
     unsigned useCount_;
