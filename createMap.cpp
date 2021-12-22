@@ -61,8 +61,9 @@ Map createMap() {
     auto banana = make_unique<DropperItem>(DropperItem{
         "banana",
         "This is a large ripe tropical banana.",
-        "You drop the banana peela",
-        "You eat the banana.",
+        " and drop the banana peel.",
+        " and the peel.",
+        "You eat the banana",
         move(bananaPeel)
     });
     map[diningRoom].addInteractive(move(banana));

@@ -19,23 +19,24 @@
 using namespace std;
 using namespace cardinal;
 
-DropperItem::DropperItem(const string &name, const string &description, 
-    const string &dropText, const string &useText, unique_ptr<Interactive> dropedItem)
-     : Interactive{name, description}, dropText_(dropText), useText_(useText) {
+DropperItem::DropperItem(const string& name, const string& description, const string& dropText,
+    const string& dropedText, const string& useText, unique_ptr<Interactive> dropedItem)
+    : Interactive{ name, description }, dropText_(dropText), dropedText_(dropedText), useText_(useText) {
     dropedItem_ = move(dropedItem);
-} 
+}
 
 DropperItem::DropperItem(const DropperItem& other)
-    : DropperItem(other.name_, other.description_, other.dropText_, other.useText_, 
+    : DropperItem(other.name_, other.description_, other.dropText_, other.dropedText_, other.useText_, 
     make_unique<Interactive>(*other.dropedItem_)) {}
     
 void DropperItem::interact(Game &game, ostream &os) {
+    os << useText_;
     if (!used_) {
         (*game.getNavigator()).addInteractive(move(dropedItem_));
-        os << useText_ << " " << dropText_ << endl;
+        os << dropText_ << endl;
         used_ = true;
     }
     else {
-        os << useText_ << endl;
+        os << dropedText_ << endl;
     }
 }
