@@ -39,6 +39,9 @@ The `Map` allows the level designer to set *adjacency* in a consistent manner re
 ### The Navigator class
 The `Navigator` is used to move through the *tiles*. It holds the current *position* and interprets the information in *tile* to only allow movement between *linked tiles*.
 
+### The Lookable class
+The Lookable class is an abstract class from which all classes with information viewable to the user will be derrived.
+
 ### The Game class
 The `Game` interprets the player's commands, modifies the `Tile`s and `Navigator` accordingly and gives feedback to the player.
 

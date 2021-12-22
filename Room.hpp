@@ -9,14 +9,14 @@
 #pragma once
 
 #include "Interactive.hpp"
-#include "Component.hpp"
+#include "Lookable.hpp"
 
 #include <string>
 #include <iostream>
 #include <unordered_map>
 #include <memory>
 
-class Room : public Component {
+class Room : public Lookable {
 public:
     Room() = default;
     Room(const std::string &name, const std::string &description="");

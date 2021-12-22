@@ -131,22 +131,22 @@ public:
 
     constexpr multi_span_index& operator=(const multi_span_index& rhs) noexcept = default;
 
-    // Preconditions: component_idx < rank
+    // Preconditions: Lookable_idx < rank
     GSL_SUPPRESS(bounds.2) // NO-FORMAT: attribute
     GSL_SUPPRESS(bounds.4) // NO-FORMAT: attribute
-    constexpr reference operator[](std::size_t component_idx)
+    constexpr reference operator[](std::size_t Lookable_idx)
     {
-        Expects(component_idx < Rank); // Component index must be less than rank
-        return elems[component_idx];
+        Expects(Lookable_idx < Rank); // Lookable index must be less than rank
+        return elems[Lookable_idx];
     }
 
-    // Preconditions: component_idx < rank
+    // Preconditions: Lookable_idx < rank
     GSL_SUPPRESS(bounds.2) // NO-FORMAT: attribute
     GSL_SUPPRESS(bounds.4) // NO-FORMAT: attribute
-    constexpr const_reference operator[](std::size_t component_idx) const
+    constexpr const_reference operator[](std::size_t Lookable_idx) const
     {
-        Expects(component_idx < Rank); // Component index must be less than rank
-        return elems[component_idx];
+        Expects(Lookable_idx < Rank); // Lookable index must be less than rank
+        return elems[Lookable_idx];
     }
 
     GSL_SUPPRESS(bounds.1) // NO-FORMAT: attribute

@@ -15,10 +15,10 @@
 using namespace std;
 
 Room::Room(const string &name, const string &description) : 
-    Component(name, description) {}
+    Lookable(name, description) {}
 
 Room::Room(const Room& other) : 
-    Component(other.getName(), other.getDescription()) {
+    Lookable(other.getName(), other.getDescription()) {
         for (auto&& [name, interactive] : interactives_) {
             interactives_[name_] = make_unique<Interactive>(*interactive);
         }

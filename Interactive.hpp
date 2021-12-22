@@ -8,17 +8,17 @@
 
 #pragma once
 
-#include "Component.hpp"
+#include "Lookable.hpp"
 
 #include <iostream>
 #include <string>
 
 class Game;
-class Interactive : public Component {
+class Interactive : public Lookable {
 public:
     Interactive(const std::string &name, const std::string &description, 
         const std::string &useText = "Nothing happens.") :
-        used_(false), useText_(useText), Component(name, description) {}
+        Lookable(name, description), useText_(useText), used_(false) {}
     
     virtual void interact(Game&, std::ostream &os)     { os << useText_ << std::endl; }
     virtual void show(std::ostream &os) const override { os << description_; }
