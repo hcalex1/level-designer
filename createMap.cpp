@@ -56,13 +56,15 @@ Map createMap() {
 
     auto bananaPeel = make_unique<Interactive>(Interactive{
         "banana peel",
-        "A slippery banana peel."
+        "A slippery banana peel.",
+        "You slip on the banana peel and hit your head on the floor.\n.\n.\n.\n.\n"
+        "30 minutes later you regain consciousness and regret not learning from your Mario Kart experience."
     });
     auto banana = make_unique<DropperItem>(DropperItem{
         "banana",
         "This is a large ripe tropical banana.",
-        " and drop the banana peel.",
-        " and the peel.",
+        " and accidentally drop the banana peel.\nA new banana appears out of thin air!",
+        " and the entire peel.\nA new banana appears out of thin air!",
         "You eat the banana",
         move(bananaPeel)
     });
