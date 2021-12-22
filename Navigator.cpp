@@ -19,6 +19,10 @@ using namespace std;
 
 Navigator::Navigator(Tile* tile) : tile_(tile) {}
 
+Room& Navigator::getRoom(cardinal::Direction direction) {
+    return tile_->adjacentTiles_[direction]->room_;
+}
+
 void Navigator::link(cardinal::Direction direction) {
     tile_->link(direction);
 }

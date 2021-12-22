@@ -6,7 +6,7 @@
 - *position*: The reference system for location in 2D. It is chracterized two integers (x, y).
 - *link*:  *tile*1 is *linked* to *tile*2 when the *character* can move from that *tile*1 to the *tile*2.
 - *adjacent*: Two *tiles* are *adjacent* when they are at a distance of 1. This limits *adjacency* to *tiles* in cardinal directions of eachother.
-- *room*: The object occupying a *tile* with which a *character* can interact.
+- *room*: The Interactive occupying a *tile* with which a *character* can interact.
 
 ## Assumptions:
 1. *tiles* can only be *linked* to *adjacent tiles* 
@@ -43,15 +43,7 @@ The `Navigator` is used to move through the *tiles*. It holds the current *posit
 The `Game` interprets the player's commands, modifies the `Tile`s and `Navigator` accordingly and gives feedback to the player.
 
 ### The Room class
-The `Room` class repesents the space with which the *character* interacts. It is composed of information about the *room* viewable by the *character* and *object* with which the player can interact.
+The `Room` class repesents the space with which the *character* interacts. It is composed of information about the *room* viewable by the *character* and *Interactive* with which the player can interact.
 
-### The Object class
-The `Object` class can be used by the *character* to modify any the gamestate. It is currently only used in `Room`, but can be added to other classes (e.g. in *character* inventory). 
-
-To allow the level designer more flexibility in the implementation of `Objects`, `Objects` can take a function with parameters `Game`, the use count and `ostream` that will be executed when the objected is used. 
-This function can :
-- add/remove `Objects`
-- link/unlink `Rooms`
-- change `Tile`
-- exit the `Game`
-- use any other methods publicly accessible from `Game`
+### The Interactive class
+The `Interactive` class can be used by the *character* to modify any the game state. It is currently only used in `Room`, but can be added to other classes (e.g. in *character* inventory). 

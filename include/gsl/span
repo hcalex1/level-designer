@@ -776,7 +776,7 @@ namespace details
     };
 } // namespace details
 
-// [span.objectrep], views of object representation
+// [span.Interactiverep], views of Interactive representation
 template <class ElementType, std::size_t Extent>
 span<const byte, details::calculate_byte_size<ElementType, Extent>::value>
 as_bytes(span<ElementType, Extent> s) noexcept

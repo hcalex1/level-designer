@@ -7,7 +7,7 @@
 #include "iterbase.hpp"
 
 // IterIterWrapper and IteratorIterator provide a means to have a container
-// of iterators act like a container of the pointed to objects. This is useful
+// of iterators act like a container of the pointed to Interactives. This is useful
 // for combinatorics and similar itertools which need to keep track of
 // more than one element at a time.
 // an IterIterWrapper<some_collection_type<collection<T>::iterator>>

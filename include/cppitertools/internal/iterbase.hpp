@@ -60,7 +60,7 @@ namespace iter {
         get_begin(std::declval<const std::remove_reference_t<Container>&>()));
 
     // iterator_deref<C> is the type obtained by dereferencing an iterator
-    // to an object of type C
+    // to an Interactive of type C
     template <typename Container>
     using iterator_deref = decltype(*std::declval<iterator_type<Container>&>());
 
@@ -123,7 +123,7 @@ namespace iter {
     template <typename C>
     using iterator_arrow = detail::arrow<iterator_type<C>>;
 
-    // applys the -> operator to an object, if the object is a pointer,
+    // applys the -> operator to an Interactive, if the Interactive is a pointer,
     // it returns the pointer
     template <typename T>
     detail::arrow<T> apply_arrow(T& t) {
@@ -132,7 +132,7 @@ namespace iter {
 
     // For iterators that have an operator* which returns a value
     // they can return this type from their operator-> instead, which will
-    // wrap an object and allow it to be used with arrow
+    // wrap an Interactive and allow it to be used with arrow
     template <typename T>
     class ArrowProxy {
      private:

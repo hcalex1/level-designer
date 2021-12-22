@@ -12,6 +12,7 @@
 #include "Navigator.hpp"
 
 #include <string>
+#include <functional>
 
 class Game {
 public:

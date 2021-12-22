@@ -10,8 +10,6 @@
 #pragma once
 
 #include "Map.hpp"
-#include "Object.hpp"
+#include "Interactive.hpp"
 
 Map    createMap();
-Object createBookShelf();
-Object createBanana();

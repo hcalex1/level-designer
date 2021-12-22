@@ -10,7 +10,8 @@
 #include "createMap.hpp"
 #include "Map.hpp"
 #include "Room.hpp"
-#include "Object.hpp"
+#include "LinkerItem.hpp"
+#include "DropperItem.hpp"
 #include "Game.hpp"
 #include "cardinal.hpp"
 
@@ -46,36 +47,25 @@ Map createMap() {
     map.link(garage,    livingRoom);
     map.link(foyer,     diningRoom);
 
-    Object bookShelf = createBookShelf();
-    map[livingRoom].addObject(bookShelf);
+    LinkerItem bookShelf{
+        "book shelf",
+        "This a woodden book shelf filled with encyclopedias.",
+        cardinal::EAST
+    };
+    map[livingRoom].addInteractive(bookShelf);
 
-    Object banana = createBanana();
-    map[diningRoom].addObject(banana);
+    Interactive bananaPeel{
+        "banana peel",
+        "A slippery banana peel."
+    };
+    DropperItem banana{
+        "banana",
+        "This is a large ripe tropical banana.",
+        "You drop the banana peela",
+        "You eat the banana.",
+        bananaPeel
+    };
+    map[diningRoom].addInteractive(banana);
 
     return map;
-}
-
-Object createBookShelf() {
-    Object object{"book shelf", "This a woodden book shelf filled with encyclopedias."};
-    object.setInteract( [] (Game& g, unsigned c, ostream& os) { 
-        if (c == 0) {
-            os << "You pull on a book.\nThe shelf slides to the side...\n";
-            g.getNavigator().link(cardinal::EAST); 
-        }
-        else {
-            os << "You read some books.\n";
-        }
-    });
-    return object;
-}
-
-Object createBanana() {
-    Object object{"banana", "This is a large ripe tropical banana."};
-    object.setInteract( [] (Game& g, [[maybe_unused]] unsigned c, ostream& os) { 
-        Room &r = *g.getNavigator();
-        os << "You peel the banana and eat it.\n"; 
-        r.addObject(Object{"banana peel", "A slippery banana peel."});
-        r.removeObject("banana");
-    });
-    return object;
 }

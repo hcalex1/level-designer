@@ -9,8 +9,8 @@
 
 namespace iter {
   namespace impl {
-    // Callable object that reverses the boolean result of another
-    // callable, taking the object in a Container's iterator
+    // Callable Interactive that reverses the boolean result of another
+    // callable, taking the Interactive in a Container's iterator
     template <typename FilterFunc>
     class PredicateFlipper {
      private:

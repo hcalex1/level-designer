@@ -22,7 +22,7 @@ namespace iter {
 
     using ChainFromIterableFn = IterToolFn<ChainedFromIterable>;
 
-    // rather than a chain function, use a callable object to support
+    // rather than a chain function, use a callable Interactive to support
     // from_iterable
     class ChainMaker;
   }

@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Object.hpp"
+#include "Interactive.hpp"
 
 #include <string>
 #include <iostream>
@@ -23,13 +23,13 @@ public:
 
     const std::string& getName() const;
     const std::string& getDescription() const;
-    Object& getObject(const std::string&);
-    void addObject(const Object&);
-    void removeObject(const std::string&);
+    Interactive& getInteractive(const std::string&);
+    void addInteractive(const Interactive&);
+    void removeInteractive(const std::string&);
     void show(std::ostream&) const;
 
 private:
     std::string name_;
     std::string description_;
-    std::unordered_map<std::string, std::unique_ptr<Object>> objects_;
+    std::unordered_map<std::string, std::unique_ptr<Interactive>> interactives_;
 };

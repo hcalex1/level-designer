@@ -12,7 +12,7 @@
 #include "Exceptions/InvalidCommand.hpp"
 #include "Exceptions/InvalidDirection.hpp"
 #include "Exceptions/EmptyDirection.hpp"
-#include "Exceptions/InvalidObject.hpp"
+#include "Exceptions/InvalidInteractive.hpp"
 
 #include <memory>
 #include <stdexcept>
@@ -70,7 +70,7 @@ void Game::start() {
         catch (EmptyDirection& e)   { cout << "You can't go there."     << endl; }
         catch (InvalidCommand& e)   { cout << "I do not know that one." << endl; }
         catch (InvalidDirection& e) { cout << "I do not know that one." << endl; }
-        catch (InvalidObject& e)    { cout << "That is not an object."  << endl; }
+        catch (InvalidInteractive& e)    { cout << "That is not an Interactive."  << endl; }
     }
 }
 
@@ -95,18 +95,18 @@ map<string, std::function<void(Game&, const string&)>> Game::commands_ = {
               n.show(cout);
           }
           else {
-              (*n).getObject(arg).show(cout);
+              (*n).getInteractive(arg).show(cout);
           }
        }
     },
     { "use",
       [] (Game& g, const string& arg) {
           if (arg == "") {
-              cout << "The use command requires object name or keyword as argument." << endl;
+              cout << "The use command requires Interactive name or keyword as argument." << endl;
           }
           else {
               Navigator &n = g.navigator_;
-              (*n).getObject(arg).interact(g, cout);
+              (*n).getInteractive(arg).interact(g, cout);
               commands_["look"](g, "");
           }
       } 

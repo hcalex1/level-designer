@@ -17,17 +17,16 @@ class Navigator {
 public:
     Navigator(Tile* tile);
 
-    void link(cardinal::Direction direction);
+    Room& getRoom(cardinal::Direction);
 
-    void unlink(cardinal::Direction direction);
+    void link(cardinal::Direction);
+    void unlink(cardinal::Direction);
+    void move(cardinal::Direction);
+    void show(std::ostream&) const;
 
     Room& operator*();
-
     const Room& operator*() const;
 
-    void move(cardinal::Direction direction);
-
-    void show(std::ostream&) const;
 
 private:
     Tile* tile_;

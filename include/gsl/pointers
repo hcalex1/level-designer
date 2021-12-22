@@ -105,7 +105,7 @@ public:
     not_null(std::nullptr_t) = delete;
     not_null& operator=(std::nullptr_t) = delete;
 
-    // unwanted operators...pointers only point to single objects!
+    // unwanted operators...pointers only point to single Interactives!
     not_null& operator++() = delete;
     not_null& operator--() = delete;
     not_null operator++(int) = delete;
@@ -246,7 +246,7 @@ public:
     strict_not_null(std::nullptr_t) = delete;
     strict_not_null& operator=(std::nullptr_t) = delete;
 
-    // unwanted operators...pointers only point to single objects!
+    // unwanted operators...pointers only point to single Interactives!
     strict_not_null& operator++() = delete;
     strict_not_null& operator--() = delete;
     strict_not_null operator++(int) = delete;

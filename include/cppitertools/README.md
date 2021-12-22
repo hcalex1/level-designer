@@ -75,7 +75,7 @@ $ bazel test //test:all # runs all tests
 $ bazel test //test:test_enumerate # runs a specific test
 ```
 
-#### Requirements of passed objects
+#### Requirements of passed Interactives
 Most itertools will work with iterables using InputIterators and not copy
 or move any underlying elements.  The itertools that need ForwardIterators or
 have additional requirements are noted in this document. However, the cases
@@ -87,7 +87,7 @@ underlying iterables, but if anything noteworthy is needed it is described
 in this document.
 
 #### Guarantees of implementations
-By implementations I mean the objects returned by the API's functions. All of
+By implementations I mean the Interactives returned by the API's functions. All of
 the implementation classes are move-constructible, not copy-constructible,
 not assignable. All iterators that work over another iterable are tagged
 as InputIterators and behave as such.
@@ -105,7 +105,7 @@ in this document and take the steps to clarify it.  So please, contact me with
 any concerns, I'm open to feedback.
 
 #### How (not) to use this library
-The library functions create and return objects that are properly templated on
+The library functions create and return Interactives that are properly templated on
 the iterable they are passed. These exact names of these types or
 precisely how they are templated is unspecified, you should rely on the
 functions described in this document.
@@ -122,7 +122,7 @@ Let's take an example
 std::vector<int> vec{2,4,6,8};
 for (auto&& p : enumerate(vec)) { /* ... */ }
 ```
-In this case, `enumerate` will return an object that has bound a reference to
+In this case, `enumerate` will return an Interactive that has bound a reference to
 `vec`. No copies are produced here, neither of `vec` nor of the elements it
 holds.
 
@@ -131,12 +131,12 @@ Consider:
 ```c++
 for (auto&& p : enumerate(std::vector<int>{2,4,6,8})) { /* ... */ }
 ```
-Instead, `enumerate` will return an object that has the temporary *moved* into
-it.  That is, the returned object will contain a `std::vector<int>` rather than
+Instead, `enumerate` will return an Interactive that has the temporary *moved* into
+it.  That is, the returned Interactive will contain a `std::vector<int>` rather than
 just a reference to one. This may seem like a contrived example, but it matters
 when `enumerate` is passed the result of a function call like `enumerate(f())`,
-or, more obviously, something like `enumerate(zip(a, b))`.  The object returned
-from `zip` must be moved into the `enumerate` object. As a more specific
+or, more obviously, something like `enumerate(zip(a, b))`.  The Interactive returned
+from `zip` must be moved into the `enumerate` Interactive. As a more specific
 result, itertools can be mixed and nested.
 
 
@@ -306,7 +306,7 @@ unique\_everseen
 *Additional Requirements*: Underlying values must be copy-constructible.
 
 This is a filter adaptor that only generates values that have never been seen
-before. For this to work your object must be specialized for `std::hash`.
+before. For this to work your Interactive must be specialized for `std::hash`.
 
 Prints `1 2 3 4 5 6 7 8 9`
 ```c++
@@ -447,8 +447,8 @@ Thus, if the group is unsorted, the same key may appear multiple times.
 starmap
 -------
 
-Takes a sequence of tuple-like objects (anything that works with `std::get`)
-and unpacks each object into individual arguments for each function call.
+Takes a sequence of tuple-like Interactives (anything that works with `std::get`)
+and unpacks each Interactive into individual arguments for each function call.
 The below example takes a `vector` of `pairs` of ints, and passes them
 to a function expecting two ints, with the elements of the `pair` being
 the first and second arguments to the function.
@@ -460,8 +460,8 @@ for (auto&& i : starmap([](int b, int e){return pow(b, e);}, v)) {
 }
 ```
 
-`starmap` can also work over a tuple-like object of tuple-like objects even
-when the contained objects are different as long as the functor works with
+`starmap` can also work over a tuple-like Interactive of tuple-like Interactives even
+when the contained Interactives are different as long as the functor works with
 multiple types of calls.  For example, a `Callable` struct with overloads
 for its `operator()` will work as long as all overloads have the same
 return type
