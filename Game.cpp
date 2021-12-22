@@ -70,7 +70,7 @@ void Game::start() {
         catch (EmptyDirection& e)   { cout << "You can't go there."     << endl; }
         catch (InvalidCommand& e)   { cout << "I do not know that one." << endl; }
         catch (InvalidDirection& e) { cout << "I do not know that one." << endl; }
-        catch (InvalidInteractive& e)    { cout << "That is not an Interactive."  << endl; }
+        catch (InvalidInteractive& e)    { cout << "That is not a usable item."  << endl; }
     }
 }
 
@@ -102,7 +102,7 @@ unordered_map<string, std::function<void(Game&, const string&)>> Game::commands_
     { "use",
       [] (Game& g, const string& arg) {
           if (arg == "") {
-              cout << "The use command requires Interactive name or keyword as argument." << endl;
+              cout << "The use command requires item name or keyword as argument." << endl;
           }
           else {
               Navigator &n = g.navigator_;
