@@ -1,4 +1,4 @@
-# INF1015 Projet - Deadly Rooms
+# Square by Square Level Designer
 
 ## Definitions:
 - *character*: The player's character though which he interacts with the game world
